@@ -1,0 +1,31 @@
+.footerContainer {
+    background-color: #333; /* Match the header's background color */
+    color: #fff; /* White text color */
+    padding: 20px 0; /* Padding for spacing */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+  }
+  
+  .footerList {
+    list-style-type: none; 
+    display: flex;
+    gap: 20px; 
+  }
+  
+  .footerLink {
+    font-size: 1em;
+  }
+  
+  .footerAnchor {
+    color: #fff; 
+    text-decoration: none; /* Remove underline from link */
+    transition: color 0.3s ease-in-out; 
+  }
+  
+  .footerAnchor:hover {
+    color: rgba(255, 255, 255, 0.6); 
+  }
+  
+  a:visited {
+    color: #fff; /* Match the normal link color */
+  }

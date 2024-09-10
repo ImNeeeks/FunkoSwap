@@ -1,12 +1,12 @@
-const { User } = require('../models');
+const { User, Funko } = require('../models');
 
 // Create the functions that fulfill the queries defined in `typeDefs.js`
 const resolvers = {
     Query: {
-        // classes: async () => {
-        //     // Get and return all documents from the classes collection
-        //     return await Class.find({});
-        // }
+        getFunko: async (parent, args) => {
+            const funko = await Funko.findAll(args);
+            return { funko };
+      }
     },
     Mutation: {
         signUp: async (parent, args) => {

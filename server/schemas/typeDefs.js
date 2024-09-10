@@ -1,5 +1,17 @@
 const typeDefs = `
 
+type Query {
+getFunko: funko
+}
+
+type Funko {
+_id: ID!
+name: String!
+description: String!
+price: Number!
+seller: String!
+}
+
 type User {
 _id: ID!
 userName: String!
@@ -12,7 +24,7 @@ token: ID!
 user: User
 }
 
-type mutation {
+type Mutation {
 signUp(userName: String!, email: String!, password: String!): Auth
 }
 `;

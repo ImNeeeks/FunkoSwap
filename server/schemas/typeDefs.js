@@ -1,14 +1,14 @@
 const typeDefs = `
 
 type Query {
-getFunko: funko
+getFunko: Funko
 }
 
 type Funko {
 _id: ID!
 name: String!
 description: String!
-price: Number!
+price: Int!
 seller: String!
 }
 

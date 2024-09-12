@@ -8,8 +8,8 @@ import Login from "./components/Content/Login/Login.jsx";
 import MyFunkoCollection from "./components/Content/MyFunkos/MyFunkoCollection/MyFunkoCollection.jsx";
 import MyFunkoWishlist from "./components/Content/MyFunkos/MyFunkoWishlist/MyFunkoWishlist.jsx";
 import MyFunkoSale from "./components/Content/MyFunkos/MyFunkoSale/MyFunkoSale.jsx";
-import OtherCollections from "./components/Content/OtherFunkos/OtherCollections/OtherCollections.jsx";
-import OtherSales from "./components/Content/OtherFunkos/OtherSales/OtherSales.jsx";
+import Search from "./components/Content/Search/Search.jsx";
+// import OtherSales from "./components/Content/OtherFunkos/OtherSales/OtherSales.jsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 
 //gives URL paths for each component
@@ -28,7 +28,6 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoutes element={<MyFunkoCollection />}></ProtectedRoutes>
         ),
-        
       },
       {
         path: "/app/myWishlist",
@@ -41,15 +40,13 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes element={<MyFunkoSale />}></ProtectedRoutes>,
       },
       {
-        path: "/app/otherCollections",
-        element: (
-          <ProtectedRoutes element={<OtherCollections />}></ProtectedRoutes>
-        ),
+        path: "/app/Search",
+        element: <ProtectedRoutes element={<Search />}></ProtectedRoutes>,
       },
-      {
-        path: "/app/otherSales",
-        element: <ProtectedRoutes element={<OtherSales />}></ProtectedRoutes>,
-      },
+      // {
+      //   path: "/app/otherSales",
+      //   element: <ProtectedRoutes element={<OtherSales />}></ProtectedRoutes>,
+      // },
     ],
   },
 ]);

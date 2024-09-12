@@ -34,13 +34,13 @@ function Header(props) {
             <button className="navButton">my sales</button>
           </Link>
 
-          <Link to="/app/otherCollections">
-            <button className="navButton">other funko collections</button>
+          <Link to="/app/Search">
+            <button className="navButton">SEARCH</button>
           </Link>
 
-          <Link to="/app/otherSales">
+          {/* <Link to="/app/otherSales">
             <button className="navButton">other funko markets</button>
-          </Link>
+          </Link> */}
         </nav>
       )}
     </header>

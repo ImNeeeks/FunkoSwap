@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-
+const { Schema } = require('mongoose');
+const categorySchema = require('./category');
 
 const funkoSchema = new Schema({
     name: {
@@ -7,10 +7,6 @@ const funkoSchema = new Schema({
         required: true,
     },
     description: {
-        type: String,
-        required: true,
-    },
-    category: {
         type: String,
         required: true,
     },
@@ -22,8 +18,13 @@ const funkoSchema = new Schema({
         type: String,
         required: true,
     },
-});
+    category: [categorySchema],
+},
+    {
+        toJSON: {
+            virtuals: true,
+        },
+    }
+);
 
-const Funko = model('Funko', funkoSchema);
-
-module.exports = Funko;
+module.exports = funkoSchema;

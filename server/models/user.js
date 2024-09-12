@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose');
+const funkoSchema = require('./funko');
+
 const bcyrpt = require('bcrypt');
 
 const userSchema = new Schema(
@@ -18,8 +20,8 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-        }
-        // category reference here?
+        },
+        wishList: [funkoSchema],
     },
     {
         toJSON: {

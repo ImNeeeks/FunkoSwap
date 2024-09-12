@@ -15,16 +15,20 @@ import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 //gives URL paths for each component
 const router = createBrowserRouter([
   {
-    path: "/app",
+    path: "/",
     element: <App />,
     // error: <NoMatch />, //make custom 404 page if you want
     children: [
       {
+        index: true,
+        element: <Login />,
+      },
+      {
         path: "/app/myCollection",
         element: (
-          // protected routes are only accessible when loggedIn state is verified by token in localStorage
           <ProtectedRoutes element={<MyFunkoCollection />}></ProtectedRoutes>
         ),
+        
       },
       {
         path: "/app/myWishlist",
@@ -47,10 +51,6 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes element={<OtherSales />}></ProtectedRoutes>,
       },
     ],
-  },
-  {
-    path: "/",
-    element: <Login />,
   },
 ]);
 

@@ -1,7 +1,14 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-mongoose.connect(
-    process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/funkoSwap'
-);
+async function connectToDB() {
+  try {
+    const conn = await mongoose.connect(process.env.DB_URI);
+    console.log("Connected to DB", conn);
+  } catch (err) {
+    console.log(err);
+  }
+}
+connectToDB();
 
 module.exports = mongoose.connection;

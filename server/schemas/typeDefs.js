@@ -1,15 +1,11 @@
 const typeDefs = `
 
 type Query {
-getFunko: Funko
+getFunko(_id: ID!): Funko
+user(_id: ID!): User
 }
 
-type Query {
-user: User
-}
-
-input funkoInput {
-_id: ID!
+input FunkoInput {
 name: String!
 description: String!
 price: Int!
@@ -39,8 +35,8 @@ user: User
 
 type Mutation {
 signUp(userName: String!, email: String!, password: String!): Auth
-login(email: String!, password: String!): User
-saveFunko(funkoInput: funkoInput!): Funko
+login(email: String!, password: String!): Auth
+saveFunko(funkoInput: FunkoInput!): User
 deleteFunko(_id: ID!): User
 }
 `;

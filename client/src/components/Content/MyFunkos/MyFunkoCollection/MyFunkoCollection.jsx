@@ -1,6 +1,6 @@
 import React from "react";
 import "./MyFunkoCollection.css";
-
+// SEND REQUEST TO BACKEND to find User ID = myID and give "MyCollection" array
 // the collection houses the user's own collection of funkos
 // the general structure of the funko function contains the funko's name and image
 function MyFunkoCollection() {

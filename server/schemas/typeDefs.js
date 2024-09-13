@@ -5,32 +5,48 @@ getFunko(_id: ID!): Funko
 user(_id: ID!): User
 }
 
-input FunkoInput {
-name: String!
-description: String!
-price: Int!
-seller: String!
+
+type Query {
+    getFunko(name:String): Funko
+    listFunkos: [Funko]
+    user: User
+}
+
+input funkoInput {
+    _id: ID!
+    title: String!
+    handle: String!
+    imageName: String!
+    description: String
+    price: Float
+
 }
 
 type Funko {
-_id: ID!
-name: String!
-description: String!
-price: Int!
-seller: String!
+    _id: ID!
+    title: String!
+    handle: String!
+    imageName: String!
+    description: String
+    price: Float
+    category: String
 }
 
 type User {
-_id: ID!
-username: String!
-email: String!
-password: String!
-wishList: [Funko]
+
+    _id: ID!
+    userName: String!
+    email: String!
+    password: String!
+    collection: [String]
+    wishList: [String]
+    cart: [String]
+
 }
 
 type Auth {
-token: ID!
-user: User
+    token: ID!
+    user: User
 }
 
 type Mutation {

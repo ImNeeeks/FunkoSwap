@@ -1,7 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-mongoose.connect(
-    process.env.MONGODB_URI || 'mongodb+srv://funkoAdmin:0000@cluster0.vx2ke.mongodb.net/funkoInventory?retryWrites=true&w=majority&appName=Cluster0'
-);
+
+async function connectToDB() {
+  try {
+    const conn = await mongoose.connect(process.env.DB_URI);
+    console.log("Connected to DB", conn);
+  } catch (err) {
+    console.log(err);
+  }
+}
+connectToDB();
+
 
 module.exports = mongoose.connection;

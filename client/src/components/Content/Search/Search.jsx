@@ -7,10 +7,10 @@ const SEARCH_FUNKOS = gql`
   query SearchFunkos($searchTerm: String!) {
     getFunko(name: $searchTerm) {
       _id
-      name
+      title
+      imageName
       description
       price
-      seller
     }
   }
 `;
@@ -19,16 +19,16 @@ const ADD_FUNKO_TO_COLLECTION = gql`
   mutation AddFunkoToCollection($funkoId: ID!) {
     addFunkoToCollection(funkoId: $funkoId) {
       _id
-      name
+      title
     }
   }
 `;
-
+// push this data to the wishlist array in User model
 const ADD_FUNKO_TO_WISHLIST = gql`
   mutation AddFunkoToWishlist($funkoId: ID!) {
     addFunkoToWishlist(funkoId: $funkoId) {
       _id
-      name
+      title
     }
   }
 `;
@@ -37,7 +37,7 @@ const ADD_FUNKO_TO_SALE = gql`
   mutation AddFunkoToSale($funkoId: ID!) {
     addFunkoToSale(funkoId: $funkoId) {
       _id
-      name
+      title
     }
   }
 `;

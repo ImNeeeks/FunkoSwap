@@ -1,8 +1,10 @@
 const typeDefs = `
 
 type Query {
-getFunko: Funko
+getFunko(_id: ID!): Funko
+user(_id: ID!): User
 }
+
 
 type Query {
     getFunko(name:String): Funko
@@ -17,6 +19,7 @@ input funkoInput {
     imageName: String!
     description: String
     price: Float
+
 }
 
 type Funko {
@@ -30,6 +33,7 @@ type Funko {
 }
 
 type User {
+
     _id: ID!
     userName: String!
     email: String!
@@ -37,6 +41,7 @@ type User {
     collection: [String]
     wishList: [String]
     cart: [String]
+
 }
 
 type Auth {
@@ -45,9 +50,9 @@ type Auth {
 }
 
 type Mutation {
-signUp(userName: String!, email: String!, password: String!): Auth
-login(email: String!, password: String!): User
-saveFunko(funkoInput: funkoInput!): Funko
+signUp(username: String!, email: String!, password: String!): Auth
+login(email: String!, password: String!): Auth
+saveFunko(funkoInput: FunkoInput!): User
 deleteFunko(_id: ID!): User
 }
 `;

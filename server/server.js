@@ -1,3 +1,4 @@
+
 const express = require("express");
 const { ApolloServer } = require("@apollo/server");
 // imports Apollo/server from apollo library
@@ -8,6 +9,7 @@ const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
 const { Funko } = require("./models");
 
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({
@@ -16,6 +18,7 @@ const server = new ApolloServer({
 });
 
 const startApolloServer = async () => {
+
   await server.start();
 
   app.use(express.urlencoded({ extended: true }));
@@ -36,6 +39,7 @@ const startApolloServer = async () => {
       res.sendFile(path.join(__dirname, "../client/dist/index.html"));
     });
   }
+
 
   db.once("open", () => {
     app.listen(PORT, () => {

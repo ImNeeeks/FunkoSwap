@@ -14,7 +14,7 @@ import Header from "./components/Header/Header";
 
 // Footer is the bottom area of the page
 import Footer from "./components/Footer/Footer";
-import { useState } from "react";
+// import { useState } from "react";
 
 // outlet determines which component displays in content section
 import { Outlet } from "react-router-dom";

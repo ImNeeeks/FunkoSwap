@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
@@ -6,19 +7,21 @@ import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
 
+
 const SignupForm = ({ userFormData, setUserFormData }) => {
     // set state for form validation
     const [validated, setValidated] = useState(false);
     // set state for alert
     const [showAlert, setShowAlert] = useState(false);
    
-    const [signUp] = useMutation(ADD_USER);
+    const [signUp, {error}] = useMutation(ADD_USER);
+    
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUserFormData({ ...userFormData, [name]: value });
     };
-
+    console.log(userFormData);
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
@@ -36,7 +39,7 @@ const SignupForm = ({ userFormData, setUserFormData }) => {
             console.log("user Data: ", data);
             const token = data?.signUp.token
 
-            Auth.login(token);
+            // Auth.login(token);
         } catch (err) {
             console.error(err);
             setShowAlert(true);

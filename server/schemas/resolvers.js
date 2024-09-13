@@ -6,7 +6,7 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         getFunko: async (parent, args) => {
-            const funko = await Funko.findAll(args);
+            const funko = await Funko.find(args);
             return { funko };
         },
         user: async (parent, { _id }) => {
@@ -16,15 +16,19 @@ const resolvers = {
 
     },
     Mutation: {
-        signUp: async (parent, args) => {
-            const user = await User.create(args);
+        signUp: async (parent, { username, email, password }) => {
+            const user = await User.create({ username, email, password });
             console.log(user);
             const token = signToken(user);
-            return { user, token };
+            return { token, user };
         },
-        login: async (parent, args) => {
-            const newLogin = await User.findOne(args);
-            return newLogin;
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+            if (!user || !user.validatePassword(password)) {
+                throw new Error('Invalid credentials');
+            }
+            const token = signToken(user);
+            return { user, token };
         },
         saveFunko: async (parent, args) => {
             return User.findOneAndUpdate(

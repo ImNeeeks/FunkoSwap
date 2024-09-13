@@ -5,7 +5,7 @@ const bcyrpt = require('bcrypt');
 
 const userSchema = new Schema(
     {
-        userName: {
+        username: {
             type: String,
             required: true,
             unique: true,
@@ -19,7 +19,6 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true,
-            unique: true,
         },
         wishList: [funkoSchema],
     },

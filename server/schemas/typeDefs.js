@@ -22,7 +22,7 @@ seller: String!
 
 type User {
 _id: ID!
-userName: String!
+username: String!
 email: String!
 password: String!
 wishList: [Funko]
@@ -34,7 +34,7 @@ user: User
 }
 
 type Mutation {
-signUp(userName: String!, email: String!, password: String!): Auth
+signUp(username: String!, email: String!, password: String!): Auth
 login(email: String!, password: String!): Auth
 saveFunko(funkoInput: FunkoInput!): User
 deleteFunko(_id: ID!): User

@@ -21,20 +21,7 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        wishList: [funkoSchema],
-
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/.+@.+\..+/, "Must use valid email address"],
-    },
-    password: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+    
     collection: [
       {
         type: Schema.Types.ObjectId,

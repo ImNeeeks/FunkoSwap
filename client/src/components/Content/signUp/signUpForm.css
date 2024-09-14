@@ -1,0 +1,10 @@
+/* Style for the overall form */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 15px;
+    border: 1px solid #080808;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    justify-content: center;
+}

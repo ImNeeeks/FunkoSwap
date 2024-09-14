@@ -3,17 +3,23 @@ import "./Login.css";
 import SignupForm from "../signUp/SignUpForm";
 import LoginForm from "./loginForm";
 
-
 // the collection houses the user's own collection of funkos
 // the general structure of the funko function contains the funko's name and image
 function Login() {
-  const [isLoggingIn, setIsLoggingIn] = useState(false)
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [userFormData, setUserFormData] = useState({ email: "", password: "" });
+
   return (
-    <div>
+    <div className="login-container">
       <h1>Login</h1>
-      {isLoggingIn ? <LoginForm userFormData={userFormData} setUserFormData={setUserFormData} /> : <SignupForm userFormData={userFormData} setUserFormData={setUserFormData} />}
-      <button onClick={()=>setIsLoggingIn(!isLoggingIn)}>{isLoggingIn ? "Need to create an account?":"Already have an account?"}</button>
+      {isLoggingIn ? (
+        <LoginForm userFormData={userFormData} setUserFormData={setUserFormData} />
+      ) : (
+        <SignupForm userFormData={userFormData} setUserFormData={setUserFormData} />
+      )}
+      <button onClick={() => setIsLoggingIn(!isLoggingIn)}>
+        {isLoggingIn ? "Need to create an account?" : "Already have an account?"}
+      </button>
     </div>
   );
 }

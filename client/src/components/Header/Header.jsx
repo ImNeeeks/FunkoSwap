@@ -19,7 +19,7 @@ function Header(props) {
   // the nav bar will appear only when the use is authenticated
   return (
     <header className="headerContainer">
-      <h1 className="headerTitle"> placeholder </h1>
+      <h1 className="headerTitle"> FunkoSwap </h1>
       {loggedIn && (
         <nav className="navContainer">
           <Link to="/app/myCollection">

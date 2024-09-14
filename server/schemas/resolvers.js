@@ -1,4 +1,5 @@
-const { User, Funko } = require("../models");
+
+const { User, Funko, wishList } = require('../models');
 const { signToken } = require("../utils/auth");
 
 // Create the functions that fulfill the queries defined in `typeDefs.js`
@@ -25,6 +26,19 @@ const resolvers = {
       const params = _id ? { _id } : {};
       return User.find(params);
     },
+    getWishlist: async (_, __, { user }) => {
+      // Ensure the user is authenticated
+      if (!user) {
+        throw new Error('Not authenticated');
+      }
+
+      try {
+        const wishList = await wishList.findOne({ user: user.id }).populate('funkos');
+        return wishList ? wishList.funkos : [];
+      } catch (error) {
+        throw new Error('Error fetching wishlist');
+      }
+    },
   },
   Mutation: {
     signUp: async (parent, { username, email, password }) => {
@@ -41,17 +55,30 @@ const resolvers = {
       const token = signToken(user);
       return { user, token };
     },
-    saveFunko: async (parent, args) => {
-      return User.findOneAndUpdate(
-        { _id: user },
-        {
-          $addToSet: { wishList: { args } },
-        },
-        {
-          new: true,
-          runValidators: true,
+
+    // wishlist error might be here its wither WishList/wishList
+    addFunkoToWishlist: async (_, { funkoId }, { user }) => {
+      if (!user) {
+        throw new Error('Not authenticated');
+      }
+
+      try {
+        // Find or create the wishlist for the user
+        let wishList = await wishList.findOne({ user: user.id });
+        if (!wishlist) {
+          wishlist = new Wishlist({ user: user.id, funkos: [] });
         }
-      );
+
+        // Add the Funko to the wishlist if not already present
+        if (!wishlist.funkos.includes(funkoId)) {
+          wishlist.funkos.push(funkoId);
+          await wishlist.save();
+        }
+
+        return await Funko.findById(funkoId);
+      } catch (error) {
+        throw new Error('Error adding Funko to wishlist');
+      }
     },
     deleteFunko: async (parent, args) => {
       return User.findByIdAndUpdate(

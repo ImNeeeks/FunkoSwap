@@ -1,0 +1,43 @@
+/* MyFunkoWishlist.css */
+
+.outerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #e3f2fd;
+  }
+  
+  .funkoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .funkoContainer:hover {
+    transform: scale(1.05);
+  }
+  
+  .images {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .funkoName {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+  
+  .funkoContainer:nth-child(even) {
+    background-color: #f1f8e9;
+  }

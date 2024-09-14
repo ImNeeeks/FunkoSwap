@@ -1,0 +1,36 @@
+/* Wrapper for the entire login/signup area */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height to center vertically */
+    text-align: center;
+    flex-direction: column;
+  }
+  
+  /* Style the h1 for consistency */
+  .login-container h1 {
+    margin-bottom: 10px;
+  }
+  
+  /* Style for the form and button */
+  form, button {
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  /* Style for the toggle button */
+  button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }

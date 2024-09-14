@@ -1,6 +1,6 @@
 .footerContainer {
-    background-color: #333; /* Match the header's background color */
-    color: #fff; /* White text color */
+    background-color: #060606; /* Match the header's background color */
+    color: #fcfcfc; /* White text color */
     padding: 20px 0; /* Padding for spacing */
     display: flex;
     justify-content: center; /* Center content horizontally */
@@ -14,10 +14,11 @@
   
   .footerLink {
     font-size: 1em;
+    color: rgb(248, 248, 251);
   }
   
   .footerAnchor {
-    color: #fff; 
+    color: #fcf9f9; 
     text-decoration: none; /* Remove underline from link */
     transition: color 0.3s ease-in-out; 
   }

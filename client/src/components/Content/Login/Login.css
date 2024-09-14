@@ -3,14 +3,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height to center vertically */
+    height: 90vh; /* Full viewport height to center vertically */
     text-align: center;
     flex-direction: column;
   }
   
-  /* Style the h1 for consistency */
-  .login-container h1 {
-    margin-bottom: 10px;
+  /* Style the h2 for consistency */
+  .login-container h2 {
+    margin-bottom: 15px;
+    text-transform: uppercase;
   }
   
   /* Style for the form and button */

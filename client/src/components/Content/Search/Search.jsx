@@ -23,7 +23,7 @@ const ADD_FUNKO_TO_COLLECTION = gql`
     }
   }
 `;
-// push this data to the wishlist array in User model
+
 const ADD_FUNKO_TO_WISHLIST = gql`
   mutation AddFunkoToWishlist($funkoId: ID!) {
     addFunkoToWishlist(funkoId: $funkoId) {
@@ -46,7 +46,6 @@ function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  // Use the useQuery hook to fetch data from the GraphQL server
   const { refetch } = useQuery(SEARCH_FUNKOS, {
     variables: { searchTerm },
     skip: !searchTerm, // Skip query execution if searchTerm is empty
@@ -65,7 +64,7 @@ function Search() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    refetch(); // Trigger the search
+    refetch();
   };
 
   const handleAddFunko = async (funko, destination) => {
@@ -92,19 +91,21 @@ function Search() {
   };
 
   return (
-    <div>
-      <h2>Search for Funkos</h2>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          placeholder="Search Funkos"
-          value={searchTerm}
-          onChange={handleInputChange}
-        />
-        <button type="submit">Search</button>
-      </form>
+    <div className="search-container">
+      <div className="search-box">
+        <h2>Search for Funkos</h2>
+        <form onSubmit={handleFormSubmit}>
+          <input
+            type="text"
+            placeholder="Search Funkos"
+            value={searchTerm}
+            onChange={handleInputChange}
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
 
-      <div>
+      <div className="search-results">
         <h3>Results:</h3>
         {searchResults.length === 0 ? (
           <p>No results found</p>
@@ -112,9 +113,11 @@ function Search() {
           <ul>
             {searchResults.map((funko) => (
               <li key={funko._id}>
-                <div>
+                <div className="funko-item">
                   <strong>{funko.name}</strong>
-                  <button onClick={() => handleAddFunko(funko, "MyCollection")}>
+                  <button
+                    onClick={() => handleAddFunko(funko, "MyCollection")}
+                  >
                     Add to Collection
                   </button>
                   <button onClick={() => handleAddFunko(funko, "MyWishlist")}>

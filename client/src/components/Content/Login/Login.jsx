@@ -11,7 +11,7 @@ function Login() {
 
   return (
     <div className="login-container">
-      <h1>Login</h1>
+      <h2>Login</h2>
       {isLoggingIn ? (
         <LoginForm userFormData={userFormData} setUserFormData={setUserFormData} />
       ) : (

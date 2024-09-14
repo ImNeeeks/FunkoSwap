@@ -1,10 +1,65 @@
-/* Style for the overall form */
+/* Style for the form container */
 form {
     max-width: 400px;
     margin: 0 auto;
-    padding: 15px;
-    border: 1px solid #080808;
+    padding: 20px;
+    border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #f9f9f9;
-    justify-content: center;
+}
+
+/* Style for the alert box */
+.alert {
+    margin-bottom: 10px;
+}
+
+/* Style for the form groups to adjust the space between fields */
+.form-group {
+    margin-bottom: 0; /* Adjust the margin as needed */
+}
+
+/* Style for the form labels */
+.form-label {
+    font-weight: 500;
+    color: #333;
+}
+
+/* Style for the input fields */
+.form-control {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+/* Style for invalid feedback */
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.form-control-feedback {
+    color: #dc3545;
+    font-size: 0.85rem;
+}
+
+/* Style for the submit button */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the submit button */
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Style for the disabled button */
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

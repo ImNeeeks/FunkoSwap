@@ -12,7 +12,7 @@ type Query {
     user: User
 }
 
-input funkoInput {
+input FunkoInput {
     _id: ID!
     title: String!
     handle: String!

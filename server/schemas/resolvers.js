@@ -16,11 +16,27 @@ const resolvers = {
     //     console.error(error);
     //     throw new Error("Failed to fetch funkos");
     //   }
+    // getFunko: async (parent, args) => {
+    //   console.log("args", args);
+    //   const funko = await Funko.find({ title: args.name });
+    //   console.log("funko", funko);
+    //   return funko;
+    // },
     getFunko: async (parent, args) => {
       console.log("args", args);
-      const funko = await Funko.find({ title: args.name });
-      console.log("funko", funko);
-      return { funko };
+      try {
+        
+        const searchTerm = args.name; 
+
+        const funkos = await Funko.find({ title: new RegExp(searchTerm, 'i') });
+
+        console.log("funko", funkos); 
+
+        return funkos;
+      } catch (error) {
+        console.error("Error fetching Funkos:", error);
+        throw new Error('Failed to fetch Funkos');
+      }
     },
     user: async (parent, { _id }) => {
       const params = _id ? { _id } : {};
@@ -64,7 +80,7 @@ const resolvers = {
 
       try {
         // Find or create the wishlist for the user
-        let wishList = await wishList.findOne({ user: user.id });
+        let wishlist = await wishList.findOne({ user: user.id });
         if (!wishlist) {
           wishlist = new Wishlist({ user: user.id, funkos: [] });
         }

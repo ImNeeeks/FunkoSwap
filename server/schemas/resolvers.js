@@ -6,22 +6,7 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
 
   Query: {
-    // getFunko: async (parent, { args }) => {
-    //   try {
-    //     const funkos = await Funko.find({
-    //       handle: { $regex: args, $options: "i" },
-    //     });
-    //     return funkos;
-    //   } catch (error) {
-    //     console.error(error);
-    //     throw new Error("Failed to fetch funkos");
-    //   }
-    // getFunko: async (parent, args) => {
-    //   console.log("args", args);
-    //   const funko = await Funko.find({ title: args.name });
-    //   console.log("funko", funko);
-    //   return funko;
-    // },
+   
     getFunko: async (parent, args) => {
       console.log("args", args);
       try {
@@ -65,7 +50,7 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-      if (!user || !user.validatePassword(password)) {
+      if (!user || !user.isCorrectPassword(password)) {
         throw new Error('Invalid credentials');
       }
       const token = signToken(user);

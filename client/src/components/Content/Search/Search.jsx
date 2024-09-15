@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { useQuery, useMutation, gql } from "@apollo/client";
+/* eslint-disable no-unused-vars */
+import { useState } from "react";
+import {  useMutation, gql } from "@apollo/client";
 import "./Search.css";
+import { useLazyQuery } from "@apollo/client";
 
 // Define GraphQL queries and mutations
 const SEARCH_FUNKOS = gql`
@@ -46,7 +48,7 @@ function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const { refetch } = useQuery(SEARCH_FUNKOS, {
+  const [fetchFunkos, { called, loading, data, error }] = useLazyQuery(SEARCH_FUNKOS, {
     variables: { searchTerm },
     skip: !searchTerm, // Skip query execution if searchTerm is empty
     onCompleted: (data) => {
@@ -64,7 +66,7 @@ function Search() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    refetch();
+    fetchFunkos();
   };
 
   const handleAddFunko = async (funko, destination) => {

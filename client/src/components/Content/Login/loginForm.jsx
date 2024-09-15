@@ -38,7 +38,7 @@ const LoginForm = ({ userFormData, setUserFormData }) => {
             console.log(data);
             Auth.login(data.token);
 
-            navigate('/search')
+            navigate('/search');
         } catch (err) {
             console.error(err);
             setShowAlert(true);

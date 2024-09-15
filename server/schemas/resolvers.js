@@ -26,9 +26,9 @@ const resolvers = {
       console.log("args", args);
       try {
         
-        const searchTerm = args.name; 
-
-        const funkos = await Funko.find({ title: new RegExp(searchTerm, 'i') });
+        const searchTerm = args.searchTerm; 
+        console.log(args);
+        const funkos = await Funko.find({ title: { $regex: searchTerm, $options: 'i' } });
 
         console.log("funko", funkos); 
 

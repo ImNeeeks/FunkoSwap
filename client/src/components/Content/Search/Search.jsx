@@ -5,7 +5,7 @@ import "./Search.css";
 // Define GraphQL queries and mutations
 const SEARCH_FUNKOS = gql`
   query SearchFunkos($searchTerm: String!) {
-    getFunko(name: $searchTerm) {
+    getFunko(searchTerm: $searchTerm) {
       _id
       title
       imageName
@@ -114,7 +114,8 @@ function Search() {
             {searchResults.map((funko) => (
               <li key={funko._id}>
                 <div className="funko-item">
-                  <strong>{funko.name}</strong>
+                  <strong>{funko.title}</strong>
+                  <img src={funko.imageName}/>
                   <button
                     onClick={() => handleAddFunko(funko, "MyCollection")}
                   >

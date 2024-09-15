@@ -7,7 +7,7 @@ import LoginForm from "./loginForm";
 // the general structure of the funko function contains the funko's name and image
 function Login() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [userFormData, setUserFormData] = useState({ email: "", password: "" });
+  const [userFormData, setUserFormData] = useState({ username:"", email: "", password: "" });
 
   return (
     <div className="login-container">

@@ -15,5 +15,8 @@
   "description": "## Project Requirements",
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }

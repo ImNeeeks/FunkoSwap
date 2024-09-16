@@ -140,15 +140,14 @@ function Search() {
                                 <div
                                     className="card"
                                     style={{
-                                        width: "18rem",
-                                        height: "30rem",
-                                        margin: "10px",
+                                        width: "14rem",
+                                        height: "20rem",
+                                        margin: "5px",
                                     }}
                                 >
                                     <img
                                         src={funko.imageName}
-                                        width="200"
-                                        height="200"
+                                        alt={funko.title}
                                     />
                                     <div className="card-body">
                                         <h5 className="card-title">

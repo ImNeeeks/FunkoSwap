@@ -1,7 +1,7 @@
 const typeDefs = `
 
 type Query {
-  getFunko(searchTerm: String): [Funko]
+  getFunko(searchTerm: String!, limit: Int!): [Funko]
   listFunkos: [Funko]
   user(_id: ID!): User
   getWishlist: [Funko]

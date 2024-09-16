@@ -1,13 +1,11 @@
-import {jwtDecode} from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 
 class AuthService {
-
     getProfile() {
         return jwtDecode(this.getToken());
     }
 
     loggedIn() {
-
         const token = this.getToken();
         return !!token && !this.isTokenEpired(token);
     }
@@ -24,19 +22,17 @@ class AuthService {
     }
 
     getToken() {
-
-        return localStorage.getItem('id_token');// token
+        return localStorage.getItem("id_token"); // token
     }
 
     login(idToken) {
-
-        localStorage.setItem('id_token', idToken);
-        window.location.assign('/app/search');
+        localStorage.setItem("id_token", idToken);
+        window.location.assign("/app/search");
     }
 
     logout() {
-        localStorage.removeItem('id_token');
-        window.location.assign('/');
+        localStorage.removeItem("id_token");
+        window.location.assign("/");
     }
 }
 

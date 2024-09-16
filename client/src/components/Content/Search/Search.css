@@ -42,7 +42,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 600px;
+    /* max-width: 600px; */
     background-color: #f9f9f9;
     padding: 20px;
     border: 1px solid #ccc;

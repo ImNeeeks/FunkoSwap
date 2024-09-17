@@ -7,15 +7,16 @@ const resolvers = {
 
   Query: {
    
-    getFunko: async (parent, args) => {
-      console.log("args", args);
+    getFunko: async (parent, { searchTerm, limit }) => {
+      console.log("searchTerm:", searchTerm);
+      console.log("limit:", limit);
       try {
-        
-        const searchTerm = args.searchTerm; 
-        console.log(args);
-        const funkos = await Funko.find({ title: { $regex: searchTerm, $options: 'i' } });
+        // Set a default limit if not provided
+        const maxLimit = limit || 20; // Default to 20 if no limit is specified
+        const funkos = await Funko.find({ title: { $regex: searchTerm, $options: 'i' } })
+          .limit(maxLimit);
 
-        console.log("funko", funkos); 
+        console.log("funkos:", funkos);
 
         return funkos;
       } catch (error) {
@@ -34,8 +35,9 @@ const resolvers = {
       }
 
       try {
-        const wishList = await wishList.findOne({ user: user.id }).populate('funkos');
-        return wishList ? wishList.funkos : [];
+        // Assuming `User.findOne` will fetch a user and populate their wishlist
+        const userWithWishlist = await User.findOne({ _id: user._id }).populate('wishList');
+        return userWithWishlist ? userWithWishlist.wishList : [];
       } catch (error) {
         throw new Error('Error fetching wishlist');
       }
@@ -58,26 +60,18 @@ const resolvers = {
     },
 
     // wishlist error might be here its wither WishList/wishList
-    addFunkoToWishlist: async (_, { funkoId }, { user }) => {
+    addFunkoToWishlist: async (_, {funkoId} , {user} ) => {
       if (!user) {
         throw new Error('Not authenticated');
       }
 
       try {
         // Find or create the wishlist for the user
-        let wishlist = await wishList.findOne({ user: user.id });
-        if (!wishlist) {
-          wishlist = new Wishlist({ user: user.id, funkos: [] });
-        }
-
-        // Add the Funko to the wishlist if not already present
-        if (!wishlist.funkos.includes(funkoId)) {
-          wishlist.funkos.push(funkoId);
-          await wishlist.save();
-        }
-
-        return await Funko.findById(funkoId);
+        let userData = await User.findOneAndUpdate({ _id: user._id },{$addToSet:{wishList: funkoId}},{new:true});
+        console.log(userData);
+        return userData;
       } catch (error) {
+        console.log(error);
         throw new Error('Error adding Funko to wishlist');
       }
     },

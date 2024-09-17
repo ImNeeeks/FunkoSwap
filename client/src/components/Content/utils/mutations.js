@@ -32,10 +32,8 @@ export const LOGIN_USER = gql`
 export const ADD_FUNKO_TO_WISHLIST = gql`
   mutation addFunkoToWishlist($funkoId: ID!) {
     addFunkoToWishlist(funkoId: $funkoId) {
-      _id
-      title
-      description
-      price
+      username
+      email
     }
   }
 `;

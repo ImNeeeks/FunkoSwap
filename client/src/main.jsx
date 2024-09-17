@@ -9,7 +9,6 @@ import MyFunkoCollection from "./components/Content/MyFunkos/MyFunkoCollection/M
 import MyFunkoWishlist from "./components/Content/MyFunkos/MyFunkoWishlist/MyFunkoWishlist.jsx";
 import MyFunkoSale from "./components/Content/MyFunkos/MyFunkoSale/MyFunkoSale.jsx";
 import Search from "./components/Content/Search/Search.jsx";
-// import OtherSales from "./components/Content/OtherFunkos/OtherSales/OtherSales.jsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 
 //gives URL paths for each component

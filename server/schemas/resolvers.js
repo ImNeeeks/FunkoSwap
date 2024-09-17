@@ -1,5 +1,4 @@
-
-const { User, Funko, wishList } = require('../models');
+const { User, Funko, wishList } = require("../models");
 const { signToken } = require("../utils/auth");
 
 // Create the functions that fulfill the queries defined in `typeDefs.js`

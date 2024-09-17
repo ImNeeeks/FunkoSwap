@@ -7,23 +7,23 @@ import { SEARCH_FUNKOS } from "../utils/queries";
 
 
 const ADD_FUNKO_TO_COLLECTION = gql`
-  mutation AddFunkoToCollection($funkoId: ID!) {
-    addFunkoToCollection(funkoId: $funkoId) {
-      _id
-      title
+    mutation AddFunkoToCollection($funkoId: ID!) {
+        addFunkoToCollection(funkoId: $funkoId) {
+            _id
+            title
+        }
     }
-  }
 `;
 
 
 
 const ADD_FUNKO_TO_SALE = gql`
-  mutation AddFunkoToSale($funkoId: ID!) {
-    addFunkoToSale(funkoId: $funkoId) {
-      _id
-      title
+    mutation AddFunkoToSale($funkoId: ID!) {
+        addFunkoToSale(funkoId: $funkoId) {
+            _id
+            title
+        }
     }
-  }
 `;
 
 function Search() {
@@ -42,18 +42,18 @@ function Search() {
     },
   });
 
-  const [addFunkoToCollection] = useMutation(ADD_FUNKO_TO_COLLECTION);
-  const [addFunkoToWishlist] = useMutation(ADD_FUNKO_TO_WISHLIST);
-  const [addFunkoToSale] = useMutation(ADD_FUNKO_TO_SALE);
+    const [addFunkoToCollection] = useMutation(ADD_FUNKO_TO_COLLECTION);
+    const [addFunkoToWishlist] = useMutation(ADD_FUNKO_TO_WISHLIST);
+    const [addFunkoToSale] = useMutation(ADD_FUNKO_TO_SALE);
 
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+    const handleInputChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    fetchFunkos();
-  };
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        fetchFunkos();
+    };
 
   const handleAddFunko = async (funko, destination) => {
     try {
@@ -107,36 +107,50 @@ function Search() {
         </div>
       </div>
 
-      <div className="search-results">
-        <h3>Results:</h3>
-        {searchResults.length === 0 ? (
-          <p>No results found</p>
-        ) : (
-          <ul>
-            {searchResults.map((funko) => (
-              <li key={funko._id}>
-                <div className="funko-item">
-                  <strong>{funko.title}</strong>
-                  <img src={funko.imageName}/>
-                  <button
-                    onClick={() => handleAddFunko(funko, "MyCollection")}
-                  >
-                    Add to Collection
-                  </button>
-                  <button onClick={() => handleAddFunko(funko, "MyWishlist")}>
-                    Add to Wishlist
-                  </button>
-                  <button onClick={() => handleAddFunko(funko, "MySale")}>
-                    Add to Sale
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
-  );
+            <div className="search-results">
+                <h3>Results:</h3>
+                {searchResults.length === 0 ? (
+                    <p>No results found</p>
+                ) : (
+                    <div className="row">
+                        {searchResults.map((funko) => (
+                            <div key={funko._id} className="col-lg-2">
+                                <div
+                                    className="card"
+                                    style={{
+                                        width: "18rem",
+                                        height: "30rem",
+                                        margin: "10px",
+                                    }}
+                                >
+                                    <img
+                                        src={funko.imageName}
+                                        width="200"
+                                        height="200"
+                                    />
+                                    <div className="card-body">
+                                        <h5 className="card-title">
+                                            Card title
+                                        </h5>
+                                        <p className="card-text">
+                                            Some quick example text to build on
+                                            the card title and make up the bulk
+                                            of the card's content.
+                                        </p>
+                                        <a href="#" className="btn btn-primary">
+                                            Go somewhere
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 }
 
 export default Search;
+
+///

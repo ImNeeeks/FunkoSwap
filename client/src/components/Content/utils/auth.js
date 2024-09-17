@@ -1,13 +1,11 @@
-import {jwtDecode} from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 
 class AuthService {
-
     getProfile() {
         return jwtDecode(this.getToken());
     }
 
     loggedIn() {
-
         const token = this.getToken();
         return !!token && !this.isTokenEpired(token);
     }

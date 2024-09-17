@@ -8,6 +8,14 @@ form {
     background-color: #f9f9f9;
 }
 
+h3 {
+    font-size: xx-large;
+    font-weight: 600;
+    color:#161616;
+    margin-bottom: 20px;
+    
+}
+
 /* Style for the alert box */
 .alert {
     margin-bottom: 10px;
@@ -21,7 +29,7 @@ form {
 /* Style for the form labels */
 .form-label {
     font-weight: 500;
-    color: #333;
+    color: #060606;
 }
 
 /* Style for the input fields */

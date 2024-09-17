@@ -134,20 +134,15 @@ function Search() {
                 {searchResults.length === 0 ? (
                     <p>No results found</p>
                 ) : (
-                    <div className="row">
+                    <div className="row ">
                         {searchResults.map((funko) => (
-                            <div key={funko._id} className="col-lg-2">
-                                <div
-                                    className="card"
-                                    style={{
-                                        width: "14rem",
-                                        height: "20rem",
-                                        margin: "5px",
-                                    }}
-                                >
+                            <div key={funko._id} className="col-lg-4  m-3">
+                                <div className="card align-items-center">
                                     <img
                                         src={funko.imageName}
                                         alt={funko.title}
+                                        width={150}
+                                        height={150}
                                     />
                                     <div className="card-body">
                                         <h5 className="card-title">

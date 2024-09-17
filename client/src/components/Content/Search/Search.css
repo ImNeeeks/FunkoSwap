@@ -1,10 +1,11 @@
 /* Container for the entire search */
 .search-container {
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   /* Full viewport height */
   text-align: center;
   position: relative;
@@ -24,7 +25,7 @@
 }
 
 .search-box button {
-  padding: 10px 15px;
+  padding: px 15px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -38,11 +39,11 @@
 
 /* Search results box at the bottom of the screen */
 .search-results {
-  position: absolute;
+  /* position: absolute; */
   bottom: 100px;
   /* Positioned 20px from the bottom */
-  left: 50%;
-  transform: translateX(-50%);
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
   width: 100%;
   /* max-width: 600px; */
   background-color: #f9f9f9;
@@ -107,7 +108,7 @@
 }
 
 .card img {
-  max-width: 100%;
-  height: auto;
+  /* max-width: 100%; */
+  /* height: auto; */
   object-fit: cover;
 }

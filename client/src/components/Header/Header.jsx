@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import auth from "../Content/utils/auth";
 
 // useEffect will change how page appears before and after
 // this component includes the nav bar and its JS

@@ -27,15 +27,16 @@ const resolvers = {
       const params = _id ? { _id } : {};
       return User.find(params);
     },
-    getWishlist: async (_, __, { user }) => {
+    getWishlist: async (parent, args, context) => {
+      console.log(context.user);
       // Ensure the user is authenticated
-      if (!user) {
+      if (!context.user) {
         throw new Error('Not authenticated');
       }
 
       try {
         // Assuming `User.findOne` will fetch a user and populate their wishlist
-        const userWithWishlist = await User.findOne({ _id: user._id }).populate('wishList');
+        const userWithWishlist = await User.findOne({ _id: context.user._id }).populate('wishList');
         return userWithWishlist ? userWithWishlist.wishList : [];
       } catch (error) {
         throw new Error('Error fetching wishlist');

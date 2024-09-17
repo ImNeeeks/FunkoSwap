@@ -1,21 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, useLazyQuery } from "@apollo/client";
 import "./Search.css";
-import { useLazyQuery } from "@apollo/client";
+import { ADD_FUNKO_TO_WISHLIST } from "../utils/mutations";
+import { SEARCH_FUNKOS } from "../utils/queries";
 
-// Define GraphQL queries and mutations
-const SEARCH_FUNKOS = gql`
-    query SearchFunkos($searchTerm: String!, $limit: Int!) {
-        getFunko(searchTerm: $searchTerm, limit: $limit) {
-            _id
-            title
-            imageName
-            description
-            price
-        }
-    }
-`;
 
 const ADD_FUNKO_TO_COLLECTION = gql`
     mutation AddFunkoToCollection($funkoId: ID!) {
@@ -26,14 +15,7 @@ const ADD_FUNKO_TO_COLLECTION = gql`
     }
 `;
 
-const ADD_FUNKO_TO_WISHLIST = gql`
-    mutation AddFunkoToWishlist($funkoId: ID!) {
-        addFunkoToWishlist(funkoId: $funkoId) {
-            _id
-            title
-        }
-    }
-`;
+
 
 const ADD_FUNKO_TO_SALE = gql`
     mutation AddFunkoToSale($funkoId: ID!) {
@@ -45,20 +27,20 @@ const ADD_FUNKO_TO_SALE = gql`
 `;
 
 function Search() {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-    const [limit, setLimit] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [limit, setLimit] = useState(10);
 
-    const [fetchFunkos, { called, loading, data, error }] = useLazyQuery(
-        SEARCH_FUNKOS,
-        {
-            variables: { searchTerm, limit },
-            skip: !searchTerm, // Skip query execution if searchTerm is empty
-            onCompleted: (data) => {
-                setSearchResults(data.getFunko || []);
-            },
-        }
-    );
+  const [fetchFunkos, { called, loading, data, error }] = useLazyQuery(SEARCH_FUNKOS, {
+    variables: { searchTerm, limit },
+    skip: !searchTerm, // Skip query execution if searchTerm is empty
+    onCompleted: (data) => {
+      setSearchResults(data.getFunko || []);
+    },
+    onError: (error) => {
+      console.error("error fetching Funkos", error);
+    },
+  });
 
     const [addFunkoToCollection] = useMutation(ADD_FUNKO_TO_COLLECTION);
     const [addFunkoToWishlist] = useMutation(ADD_FUNKO_TO_WISHLIST);
@@ -73,61 +55,57 @@ function Search() {
         fetchFunkos();
     };
 
-    const handleAddFunko = async (funko, destination) => {
-        try {
-            switch (destination) {
-                case "MyCollection":
-                    await addFunkoToCollection({
-                        variables: { funkoId: funko._id },
-                    });
-                    console.log(`Added ${funko.name} to MyFunkoCollection`);
-                    break;
-                case "MyWishlist":
-                    await addFunkoToWishlist({
-                        variables: { funkoId: funko._id },
-                    });
-                    console.log(`Added ${funko.name} to MyFunkoWishlist`);
-                    break;
-                case "MySale":
-                    await addFunkoToSale({ variables: { funkoId: funko._id } });
-                    console.log(`Added ${funko.name} to MyFunkoSale`);
-                    break;
-                default:
-                    console.error("Invalid destination");
-            }
-        } catch (error) {
-            console.error("Error adding Funko:", error);
-        }
-    };
+  const handleAddFunko = async (funko, destination) => {
+    try {
+      switch (destination) {
+        case "MyCollection":
+          await addFunkoToCollection({ variables: { funkoId: funko._id } });
+          console.log(`Added ${funko.title} to MyFunkoCollection`);
+          break;
+        case "MyWishlist":
+          await addFunkoToWishlist({ variables: { funkoId: funko._id } });
+          console.log(`Added ${funko.title} to MyFunkoWishlist`);
+          break;
+        case "MySale":
+          await addFunkoToSale({ variables: { funkoId: funko._id } });
+          console.log(`Added ${funko.title} to MyFunkoSale`);
+          break;
+        default:
+          console.error("Invalid destination");
+      }
+    } catch (error) {
+      console.error("Error adding Funko:", error);
+    }
+  };
 
-    return (
-        <div className="search-container">
-            <div className="search-box">
-                <h2>Search for Funkos</h2>
-                <form onSubmit={handleFormSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Search Funkos"
-                        value={searchTerm}
-                        onChange={handleInputChange}
-                    />
-                    <button type="submit">Search</button>
-                </form>
-                <div className="pagination-controls">
-                    <label>
-                        Results per page:
-                        <select
-                            value={limit}
-                            onChange={(e) => setLimit(parseInt(e.target.value))}
-                        >
-                            <option value={10}>10</option>
-                            <option value={20}>20</option>
-                            <option value={30}>30</option>
-                            <option value={50}>50</option>
-                        </select>
-                    </label>
-                </div>
-            </div>
+  return (
+    <div className="search-container">
+      <div className="search-box">
+        <h2>Search for Funkos</h2>
+        <form onSubmit={handleFormSubmit}>
+          <input
+            type="text"
+            placeholder="Search Funkos"
+            value={searchTerm}
+            onChange={handleInputChange}
+          />
+          <button type="submit" disabled={loading}>
+            {loading ? "Searching..." : "Search"}
+          </button>
+        </form>
+        {/* new results page option */}
+         <div className="pagination-controls">
+          <label>
+            Results per page:
+            <select value={limit} onChange={(e) => setLimit(parseInt(e.target.value))}>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={30}>30</option>
+              <option value={50}>50</option>
+            </select>
+          </label>
+        </div>
+      </div>
 
             <div className="search-results">
                 <h3>Results:</h3>

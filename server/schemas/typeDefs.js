@@ -4,7 +4,7 @@ type Query {
   getFunko(searchTerm: String!, limit: Int!): [Funko]
   listFunkos: [Funko]
   user(_id: ID!): User
-  getWishlist: [Funko]
+  getWishlist: [Funko]  
 }
 
 
@@ -13,12 +13,12 @@ input FunkoInput {
     title: String!
     handle: String!
     imageName: String!
-    description: String
+    series: String
     price: Float
 
 }
 
-type Wishlist {
+type wishList {
   _id: ID!
   user: User!
   funkos: [Funko]!
@@ -30,7 +30,7 @@ type Funko {
     title: String!
     handle: String!
     imageName: String!
-    description: String
+    series: String
     price: Float
     category: String
 }
@@ -53,7 +53,7 @@ type Auth {
 type Mutation {
 signUp(username: String!, email: String!, password: String!): Auth
 login(email: String!, password: String!): Auth
-addFunkoToWishlist(funkoId: ID!): Funko
+addFunkoToWishlist(funkoId: ID!): User
 deleteFunko(_id: ID!): User
 }
 `;

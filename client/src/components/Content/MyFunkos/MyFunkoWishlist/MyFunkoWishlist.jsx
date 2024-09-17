@@ -1,39 +1,48 @@
-import React from "react";
 import "./MyFunkoWishlist.css";
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_WISHLIST } from '../../utils/queries';
-import { ADD_FUNKO_TO_WISHLIST } from '../../utils/mutations';
+// import { ADD_FUNKO_TO_CART } from '../../utils/mutations'; // Make sure this is defined
 
 function Wishlist() {
   const { loading, error, data } = useQuery(GET_WISHLIST);
-  const [addFunkoToWishlist] = useMutation(ADD_FUNKO_TO_WISHLIST);
+  // const [addFunkoToCart] = useMutation(ADD_FUNKO_TO_CART, {
+  //   onCompleted: () => {
+  //     // Optionally, refetch or update the cache to reflect changes immediately
+  //   },
+  //   onError: (error) => {
+  //     console.error("Error adding Funko to cart", error);
+  //   }
+  // });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
 
-  const handleAddToWishlist = async (funkoId) => {
+  const wishlist = data?.getWishlist || [];
+
+  const handleAddToCart = async (funkoId) => {
     try {
-      await addFunkoToWishlist({ variables: { funkoId } });
+      await addFunkoToCart({ variables: { funkoId } });
       // Optionally, refetch or update the cache to reflect changes immediately
     } catch (e) {
-      console.error("Error adding Funko to wishlist", e);
+      console.error("Error adding Funko to cart", e);
     }
   };
 
   return (
     <div>
       <h2>My Wishlist</h2>
-      {data.wishlist.length === 0 ? (
+      {wishlist.length === 0 ? (
         <p>Your wishlist is empty.</p>
       ) : (
         <ul>
-          {data.wishlist.map((funko) => (
+          {wishlist.map((funko) => (
             <li key={funko._id}>
+              <img src={funko.imageName} alt={funko.title} />
               <strong>{funko.title}</strong>
-              <p>{funko.description}</p>
-              <p>Price: ${funko.price}</p>
-              <p>Seller: {funko.seller}</p>
-              <button onClick={() => handleAddToWishlist(funko._id)}>Add to Wishlist</button>
+              {/* Optionally include other details */}
+              <button onClick={() => handleAddToCart(funko._id)}>
+                Add to Cart
+              </button>
             </li>
           ))}
         </ul>

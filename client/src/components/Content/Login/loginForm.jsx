@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-// import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
@@ -14,7 +12,6 @@ const LoginForm = ({ userFormData, setUserFormData }) => {
     const [showAlert, setShowAlert] = useState(false);
 
     const [login, { error }] = useMutation(LOGIN_USER);
-    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -37,9 +34,9 @@ const LoginForm = ({ userFormData, setUserFormData }) => {
             })
             console.log("login Data: ", data);
             console.log(data);
-            Auth.login(data.token);
+            Auth.login(data.login.token);
 
-            // navigate('/search');
+        
         } catch (err) {
             console.error(err);
             setShowAlert(true);

@@ -8,6 +8,7 @@ const { typeDefs, resolvers } = require("./schemas");
 // importing typeDefs and resolvers from the schema file
 const db = require("./config/connection");
 const { Funko } = require("./models");
+const { authMiddleware } = require('./utils/auth');
 
 
 const PORT = process.env.PORT || 3001;
@@ -24,7 +25,9 @@ const startApolloServer = async () => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
-  app.use("/graphql", expressMiddleware(server));
+  app.use("/graphql", expressMiddleware(server, {
+    context: authMiddleware
+  }));
   app.get("/test", async (req, res) => {
     const data = await Funko.find();
     const cleaned = data.map((funko) => funko._doc);

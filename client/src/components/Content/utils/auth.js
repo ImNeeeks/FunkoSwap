@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 class AuthService {
     getProfile() {
@@ -22,17 +22,19 @@ class AuthService {
     }
 
     getToken() {
-        return localStorage.getItem("id_token"); // token
+
+        return localStorage.getItem('token');// token
     }
 
     login(idToken) {
-        localStorage.setItem("id_token", idToken);
-        window.location.assign("/app/search");
+
+        localStorage.setItem('token', idToken);
+        window.location.assign('/app/search');
     }
 
     logout() {
-        localStorage.removeItem("id_token");
-        window.location.assign("/");
+        localStorage.removeItem('token');
+        window.location.assign('/');
     }
 }
 

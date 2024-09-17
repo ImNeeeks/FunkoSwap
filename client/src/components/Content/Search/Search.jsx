@@ -112,34 +112,52 @@ function Search() {
                 {searchResults.length === 0 ? (
                     <p>No results found</p>
                 ) : (
-                    <div className="row">
+                    <div className="row ">
                         {searchResults.map((funko) => (
-                            <div key={funko._id} className="col-lg-2">
-                                <div
-                                    className="card"
-                                    style={{
-                                        width: "18rem",
-                                        height: "30rem",
-                                        margin: "10px",
-                                    }}
-                                >
+                            <div key={funko._id} className="col-lg-4  m-3">
+                                <div className="card align-items-center">
                                     <img
                                         src={funko.imageName}
-                                        width="200"
-                                        height="200"
+                                        alt={funko.title}
+                                        width={150}
+                                        height={150}
                                     />
                                     <div className="card-body">
                                         <h5 className="card-title">
-                                            Card title
+                                            {funko.title}
                                         </h5>
-                                        <p className="card-text">
-                                            Some quick example text to build on
-                                            the card title and make up the bulk
-                                            of the card's content.
-                                        </p>
-                                        <a href="#" className="btn btn-primary">
+                                        <strong>{funko.title}</strong>
+                                        <button
+                                            onClick={() =>
+                                                handleAddFunko(
+                                                    funko,
+                                                    "MyCollection"
+                                                )
+                                            }
+                                        >
+                                            Add to Collection
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                handleAddFunko(
+                                                    funko,
+                                                    "MyWishlist"
+                                                )
+                                            }
+                                        >
+                                            Add to Wishlist
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                handleAddFunko(funko, "MySale")
+                                            }
+                                        >
+                                            Add to Sale
+                                        </button>
+
+                                        {/* <a href="#" className="btn btn-primary">
                                             Go somewhere
-                                        </a>
+                                        </a> */}
                                     </div>
                                 </div>
                             </div>

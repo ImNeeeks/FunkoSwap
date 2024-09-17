@@ -9,7 +9,7 @@ import auth from "../Content/utils/auth";
 function Header(props) {
     const [loggedIn, setLoggedIn] = useState(false);
     useEffect(() => {
-        const token = localStorage.getItem("id_token");
+        const token = localStorage.getItem("token");
         if (token) {
             setLoggedIn(true);
         } else {
@@ -40,6 +40,7 @@ function Header(props) {
                         <button className="navButton">SEARCH</button>
                     </Link>
 
+            <button onClick={auth.logout}>Logout</button>
                     {/* <Link to="/app/otherSales">
             <button className="navButton">other funko markets</button>
           </Link> */}

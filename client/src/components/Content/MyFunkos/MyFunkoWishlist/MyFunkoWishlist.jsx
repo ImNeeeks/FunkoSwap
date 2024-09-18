@@ -2,18 +2,16 @@ import "./MyFunkoWishlist.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_WISHLIST } from "../../utils/queries";
 import "./MyFunkoWishlist.css";
-// import { ADD_FUNKO_TO_CART } from '../../utils/mutations'; // Make sure this is defined
+import { ADD_FUNKO_TO_CART } from '../../utils/mutations'; // Make sure this is defined
+import { useState } from "react";
+import { DELETE_FUNKO } from "../../utils/mutations";
 
 function Wishlist() {
+  const [messages, setMessages] = useState({});
   const { loading, error, data } = useQuery(GET_WISHLIST);
-  // const [addFunkoToCart] = useMutation(ADD_FUNKO_TO_CART, {
-  //   onCompleted: () => {
-  //     // Optionally, refetch or update the cache to reflect changes immediately
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error adding Funko to cart", error);
-  //   }
-  // });
+  const [deleteFunko] = useMutation(DELETE_FUNKO);
+
+  const [AddFunkoToCart] = useMutation(ADD_FUNKO_TO_CART);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
@@ -22,10 +20,32 @@ function Wishlist() {
 
   const handleAddToCart = async (funkoId) => {
     try {
-      await addFunkoToCart({ variables: { funkoId } });
-      // Optionally, refetch or update the cache to reflect changes immediately
+      const { data } = await AddFunkoToCart({ variables: { funkoId } });
+      console.log("Mutation response:", data); // Log the response
+      if (data.AddFunkoToCart) {
+        setMessages(prev => {
+          const newMessages = {
+            ...prev,
+            [data.AddFunkoToCart._id]: `Added ${data.AddFunkoToCart.title} to Cart`
+          };
+          console.log("Updated messages:", newMessages); // Log updated messages
+          return newMessages;
+        });
+      } else {
+        console.error("No Funko returned from mutation.");
+      }
     } catch (e) {
       console.error("Error adding Funko to cart", e);
+    }
+  };
+
+  const handleDelete = async (funkoId) => {
+    try {
+      const { data } = await deleteFunko({ variables: { funkoId, collection: "wishlist" } });
+      console.log("Funko deleted successfully:", data);
+      // Optionally, update cache or state to reflect changes
+    } catch (error) {
+      console.error("Error deleting Funko:", error);
     }
   };
 
@@ -56,6 +76,9 @@ function Wishlist() {
                   ) : (
                     <p>Series: N/A</p> // Fallback if no series
                   )}
+                  <button className="btn btn-danger bg" onClick={() => handleDelete(funko._id)}>
+                    Delete
+                  </button>
                   <button
                     className="btn btn-primary fixed-width-button"
                     style={{ width: "150px" }}
@@ -63,6 +86,11 @@ function Wishlist() {
                   >
                     Add to Cart
                   </button>
+                  {messages[funko._id] && (
+                    <div className={`notification mt-3 animate__animated animate__fadeIn`}>
+                      {messages[funko._id]}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,20 +1,32 @@
-import React from "react";
-import "./MyFunkoSale";
+
+import "./MyFunkoSale.css"; // Corrected import
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_CART } from "../../utils/queries"; // Assuming you have a GET_CART query
-// import { ADD_FUNKO_TO_CART } from '../../utils/mutations'; // Make sure this mutation is defined
+import { DELETE_FUNKO } from "../../utils/mutations";
+import { GET_CART } from "../../utils/queries";
+
 
 function Cart() {
   const { loading, error, data } = useQuery(GET_CART);
- 
-
+  const [deleteFunko] = useMutation(DELETE_FUNKO);
+  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
+  
+  const cartItems = data?.getCart || [];
 
-  const cartItems = data?.getCart || []; // Adjust based on your query
-
-  return (
-    <div>
+  const handleDelete = async (funkoId) => {
+    try {
+      const { data } = await deleteFunko({ variables: { funkoId, collection: "wishlist" } });
+      console.log("Funko deleted successfully:", data);
+      // Optionally, update cache or state to reflect changes
+    } catch (error) {
+      console.error("Error deleting Funko:", error);
+    }
+  };
+  
+    
+    return (
+      <div>
       <h2 className="collection-title">My Cart</h2>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
@@ -28,25 +40,18 @@ function Cart() {
                   alt={funko.title}
                   width={150}
                   height={150}
-                />
+                  />
                 <div className="card-body text-center">
                   <h5 className="card-title">{funko.title}</h5>
                   <p>Price: ${funko.randomexampleprice?.toFixed(2) || 'N/A'}</p>
-
-
-                  {/* Display series */}
                   {funko.series?.length > 0 ? (
-                    <p>Series: {funko.series.join(', ')}</p> // Join series array into a string
+                    <p>Series: {funko.series.join(', ')}</p>
                   ) : (
-                    <p>Series: N/A</p> // Fallback if no series
+                    <p>Series: N/A</p>
                   )}
-                  {/* <button
-                    className="btn btn-primary fixed-width-button"
-                    style={{ width: "150px" }}
-                    onClick={() => handleAddToCart(funko._id)}
-                  >
-                    Add to Cart
-                  </button> */}
+                  <button className="btn btn-danger bg" onClick={() => handleDelete(funko._id)}>
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
@@ -58,4 +63,3 @@ function Cart() {
 }
 
 export default Cart;
-

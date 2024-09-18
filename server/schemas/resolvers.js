@@ -3,24 +3,23 @@ const { signToken } = require("../utils/auth");
 
 // Create the functions that fulfill the queries defined in `typeDefs.js`
 const resolvers = {
-
   Query: {
-   
     getFunko: async (parent, { searchTerm, limit }) => {
       console.log("searchTerm:", searchTerm);
       console.log("limit:", limit);
       try {
         // Set a default limit if not provided
         const maxLimit = limit || 20; // Default to 20 if no limit is specified
-        const funkos = await Funko.find({ title: { $regex: searchTerm, $options: 'i' } })
-          .limit(maxLimit);
+        const funkos = await Funko.find({
+          title: { $regex: searchTerm, $options: "i" },
+        }).limit(maxLimit);
 
         console.log("funkos:", funkos);
 
         return funkos;
       } catch (error) {
         console.error("Error fetching Funkos:", error);
-        throw new Error('Failed to fetch Funkos');
+        throw new Error("Failed to fetch Funkos");
       }
     },
     user: async (parent, { _id }) => {
@@ -31,15 +30,34 @@ const resolvers = {
       console.log(context.user);
       // Ensure the user is authenticated
       if (!context.user) {
-        throw new Error('Not authenticated');
+        throw new Error("Not authenticated");
       }
 
       try {
         // Assuming `User.findOne` will fetch a user and populate their wishlist
-        const userWithWishlist = await User.findOne({ _id: context.user._id }).populate('wishList');
+        const userWithWishlist = await User.findOne({
+          _id: context.user._id,
+        }).populate("wishList");
         return userWithWishlist ? userWithWishlist.wishList : [];
       } catch (error) {
-        throw new Error('Error fetching wishlist');
+        throw new Error("Error fetching wishlist");
+      }
+    },
+    getMyCollection: async (parent, args, context) => {
+      console.log(context.user);
+      // Ensure the user is authenticated
+      if (!context.user) {
+        throw new Error("Not authenticated");
+      }
+      console.log("context", context);
+      try {
+        // Assuming `User.findOne` will fetch a user and populate their collection
+        const userWithMyCollection = await User.findOne({
+          _id: context.user._id,
+        }).populate("myCollection");
+        return userWithMyCollection ? userWithMyCollection.myCollection : [];
+      } catch (error) {
+        throw new Error("Error fetching collection");
       }
     },
   },
@@ -53,26 +71,49 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user || !user.isCorrectPassword(password)) {
-        throw new Error('Invalid credentials');
+        throw new Error("Invalid credentials");
       }
       const token = signToken(user);
       return { user, token };
     },
 
     // wishlist error might be here its wither WishList/wishList
-    addFunkoToWishlist: async (_, {funkoId} , {user} ) => {
+    addFunkoToWishlist: async (_, { funkoId }, { user }) => {
       if (!user) {
-        throw new Error('Not authenticated');
+        throw new Error("Not authenticated");
       }
 
       try {
         // Find or create the wishlist for the user
-        let userData = await User.findOneAndUpdate({ _id: user._id },{$addToSet:{wishList: funkoId}},{new:true});
+        let userData = await User.findOneAndUpdate(
+          { _id: user._id },
+          { $addToSet: { wishList: funkoId } },
+          { new: true }
+        );
         console.log(userData);
         return userData;
       } catch (error) {
         console.log(error);
-        throw new Error('Error adding Funko to wishlist');
+        throw new Error("Error adding Funko to wishlist");
+      }
+    },
+    addFunkoToMyCollection: async (_, { funkoId }, { user }) => {
+      if (!user) {
+        throw new Error("Not authenticated");
+      }
+
+      try {
+        // Find or create the wishlist for the user
+        let userData = await User.findOneAndUpdate(
+          { _id: user._id },
+          { $addToSet: { myCollection: funkoId } },
+          { new: true }
+        );
+        console.log(userData);
+        return userData;
+      } catch (error) {
+        console.log(error);
+        throw new Error("Error adding Funko to collection");
       }
     },
     deleteFunko: async (parent, args) => {

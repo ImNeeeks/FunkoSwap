@@ -4,25 +4,24 @@ const funkoSchema = require("./funko");
 const bcyrpt = require("bcrypt");
 
 const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [/.+@.+\..+/, "Must use valid email address"],
+    },
+    password: {
+      type: String,
+      required: true,
+    },
 
-    {
-        username: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-            match: [/.+@.+\..+/, 'Must use valid email address'],
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-    
-    collection: [
+    myCollection: [
       {
         type: Schema.Types.ObjectId,
         ref: "Funko",

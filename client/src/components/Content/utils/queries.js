@@ -1,13 +1,31 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
+export const GET_COLLECTION = gql`
+  query GetMyCollection {
+    getMyCollection {
+      _id
+      imageName
+      title
+    }
+  }
+`;
 
 export const GET_WISHLIST = gql`
   query GetWishlist {
-  getWishlist {
-    _id
-    imageName
-    title
+    getWishlist {
+      _id
+      imageName
+      title
+    }
   }
+`;
+export const GET_SALE = gql`
+  query GetSale {
+    cart {
+      _id
+      imageName
+      title
+    }
   }
 `;
 

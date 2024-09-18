@@ -1,17 +1,17 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 // sign up mutation
 export const ADD_USER = gql`
-    mutation signUp($username: String!, $email: String!, $password: String!) {
-        signUp(username: $username, email: $email, password: $password) {
-            token
-            user {
-                _id
-                username
-                email
-            }
-        }
+  mutation signUp($username: String!, $email: String!, $password: String!) {
+    signUp(username: $username, email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+        email
+      }
     }
+  }
 `;
 
 // login mutation
@@ -34,6 +34,15 @@ export const ADD_FUNKO_TO_WISHLIST = gql`
     addFunkoToWishlist(funkoId: $funkoId) {
       username
       email
+    }
+  }
+`;
+
+// Add funko to MyCollection mutation
+export const ADD_FUNKO_TO_MYCOLLECTION = gql`
+  mutation AddFunkoToMyCollection($funkoId: ID!) {
+    addFunkoToMyCollection(funkoId: $funkoId) {
+      _id
     }
   }
 `;

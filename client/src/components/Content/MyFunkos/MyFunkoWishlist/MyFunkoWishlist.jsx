@@ -47,7 +47,15 @@ function Wishlist() {
                 />
                 <div className="card-body text-center">
                   <h5 className="card-title">{funko.title}</h5>
-                  <strong>{funko.series}</strong> {/* Updated to show series */}
+                  <p>Price: ${funko.randomexampleprice?.toFixed(2) || 'N/A'}</p>
+
+
+                  {/* Display series */}
+                  {funko.series?.length > 0 ? (
+                    <p>Series: {funko.series.join(', ')}</p> // Join series array into a string
+                  ) : (
+                    <p>Series: N/A</p> // Fallback if no series
+                  )}
                   <button
                     className="btn btn-primary fixed-width-button"
                     style={{ width: "150px" }}

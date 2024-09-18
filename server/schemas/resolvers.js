@@ -13,21 +13,44 @@ const resolvers = {
         const funkos = await Funko.find({
           title: { $regex: searchTerm, $options: "i" },
         }).limit(maxLimit);
-
+        let data = JSON.stringify(funkos);
+        data = JSON.parse(data);
+       
         console.log("funkos:", funkos);
 
-        return funkos;
+        return data;
       } catch (error) {
         console.error("Error fetching Funkos:", error);
         throw new Error("Failed to fetch Funkos");
       }
     },
+    getCart: async (parent, args, context) => {
+      // Ensure the user is authenticated
+      if (!context.user) {
+        throw new Error("Not authenticated");
+      }
+
+      try {
+        // Fetch the user and populate their cart
+        const userWithCart = await User.findOne({ _id: context.user._id }).populate("cart");
+        const cartItems = userWithCart ? userWithCart.cart : []; // Get the cart items or an empty array if none exist
+
+        // Convert the cart items to JSON
+        let data = JSON.stringify(cartItems);
+        data = JSON.parse(data); // If you need to parse it back, although typically not needed in this context
+
+        return data; // Return the JSON data
+      } catch (error) {
+        throw new Error("Error fetching cart");
+      }
+    },
+
     user: async (parent, { _id }) => {
       const params = _id ? { _id } : {};
       return User.find(params);
     },
     getWishlist: async (parent, args, context) => {
-      console.log(context.user);
+      
       // Ensure the user is authenticated
       if (!context.user) {
         throw new Error("Not authenticated");
@@ -38,28 +61,42 @@ const resolvers = {
         const userWithWishlist = await User.findOne({
           _id: context.user._id,
         }).populate("wishList");
-        return userWithWishlist ? userWithWishlist.wishList : [];
+        // Get the wishlist items or an empty array if none exist
+        const wishlistItems = userWithWishlist ? userWithWishlist.wishList : [];
+
+        // Convert the wishlist items to JSON
+        let data = JSON.stringify(wishlistItems);
+        data = JSON.parse(data); // Typically not needed, but included as per your request
+
+        return data;
       } catch (error) {
         throw new Error("Error fetching wishlist");
       }
     },
     getMyCollection: async (parent, args, context) => {
-      console.log(context.user);
+      
       // Ensure the user is authenticated
       if (!context.user) {
         throw new Error("Not authenticated");
       }
-      console.log("context", context);
+      
       try {
         // Assuming `User.findOne` will fetch a user and populate their collection
         const userWithMyCollection = await User.findOne({
           _id: context.user._id,
         }).populate("myCollection");
-        return userWithMyCollection ? userWithMyCollection.myCollection : [];
+
+        const collectionItems = userWithMyCollection ? userWithMyCollection.myCollection : [];
+
+        let data = JSON.stringify(collectionItems);
+        data = JSON.parse(data);
+
+        return data;
       } catch (error) {
         throw new Error("Error fetching collection");
       }
     },
+
   },
   Mutation: {
     signUp: async (parent, { username, email, password }) => {
@@ -114,6 +151,25 @@ const resolvers = {
       } catch (error) {
         console.log(error);
         throw new Error("Error adding Funko to collection");
+      }
+    },
+    AddFunkoToCart: async (_, { funkoId }, { user }) => {
+      if (!user) {
+        throw new Error("Not authenticated");
+      }
+
+      try {
+        // Find or create the wishlist for the user
+        let userData = await User.findOneAndUpdate(
+          { _id: user._id },
+          { $addToSet: { cart: funkoId } },
+          { new: true }
+        );
+        console.log(userData);
+        return userData;
+      } catch (error) {
+        console.log(error);
+        throw new Error("Error adding Funko to wishlist");
       }
     },
     deleteFunko: async (parent, args) => {

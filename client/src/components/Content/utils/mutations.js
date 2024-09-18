@@ -46,3 +46,21 @@ export const ADD_FUNKO_TO_MYCOLLECTION = gql`
     }
   }
 `;
+
+
+export const ADD_FUNKO_TO_CART = gql`
+  mutation AddFunkoToCart($funkoId: ID!) {
+    AddFunkoToCart(funkoId: $funkoId) {
+      _id
+      username
+      email
+      cart {
+        _id
+        title
+        imageName
+        series
+        price
+      }
+    }
+  }
+`;

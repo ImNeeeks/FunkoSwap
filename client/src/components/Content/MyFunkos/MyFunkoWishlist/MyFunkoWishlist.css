@@ -1,6 +1,20 @@
 /* MyFunkoWishlist.css */
 
-.outerContainer {
+.custom-card {
+  background-color: #97bcf7; 
+  border: 1px solid #ced4da; 
+  border-radius: 0.5rem; /* Optional: Add rounded corners */
+}
+
+.collection-title {
+  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+  text-align: center; 
+  font-weight: bold;  
+  text-transform: uppercase;
+  padding-top: 20px;
+}
+
+/* .outerContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -40,4 +54,4 @@
   
   .funkoContainer:nth-child(even) {
     background-color: #f1f8e9;
-  }
+  } */

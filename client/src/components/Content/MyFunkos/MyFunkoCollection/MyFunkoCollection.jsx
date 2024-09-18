@@ -3,9 +3,6 @@ import "./MyFunkoCollection.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_COLLECTION } from "../../utils/queries";
 
-// SEND REQUEST TO BACKEND to find User ID = myID and give "MyCollection" array
-// the collection houses the user's own collection of funkos
-// the general structure of the funko function contains the funko's name and image
 function MyFunkoCollection() {
   const { loading, error, data } = useQuery(GET_COLLECTION);
 
@@ -25,14 +22,14 @@ function MyFunkoCollection() {
 
   return (
     <div>
-      <h2>My Collection</h2>
+      <h2 className="collection-title">My Collection</h2>
       {currentCollection.length === 0 ? (
         <p>Your collection is empty.</p>
       ) : (
         <div className="row">
           {currentCollection.map((funko) => (
             <div key={funko._id} className="col-lg-4 m-3">
-              <div className="card align-items-center">
+              <div className="card align-items-center custom-card">
                 <img
                   src={funko.imageName}
                   alt={funko.title}

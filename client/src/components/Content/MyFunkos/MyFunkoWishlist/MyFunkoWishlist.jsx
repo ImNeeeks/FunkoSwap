@@ -1,6 +1,7 @@
 import "./MyFunkoWishlist.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_WISHLIST } from "../../utils/queries";
+import "./MyFunkoWishlist.css";
 // import { ADD_FUNKO_TO_CART } from '../../utils/mutations'; // Make sure this is defined
 
 function Wishlist() {
@@ -30,24 +31,28 @@ function Wishlist() {
 
   return (
     <div>
-      <h2>My Wishlist</h2>
+      <h2 className="collection-title">My Wishlist</h2>
       {wishlist.length === 0 ? (
         <p>Your wishlist is empty.</p>
       ) : (
         <div className="row">
           {wishlist.map((funko) => (
             <div key={funko._id} className="col-lg-4 m-3">
-              <div className="card align-items-center">
+              <div className="card align-items-center custom-card">
                 <img
                   src={funko.imageName}
                   alt={funko.title}
                   width={150}
                   height={150}
                 />
-                <div className="card-body">
+                <div className="card-body text-center">
                   <h5 className="card-title">{funko.title}</h5>
                   <strong>{funko.series}</strong> {/* Updated to show series */}
-                  <button onClick={() => handleAddToCart(funko._id)}>
+                  <button
+                    className="btn btn-primary fixed-width-button"
+                    style={{ width: "150px" }}
+                    onClick={() => handleAddToCart(funko._id)}
+                  >
                     Add to Cart
                   </button>
                 </div>

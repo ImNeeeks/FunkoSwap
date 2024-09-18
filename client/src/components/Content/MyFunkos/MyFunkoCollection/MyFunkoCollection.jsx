@@ -15,9 +15,8 @@ function MyFunkoCollection() {
 
   const handleDelete = async (funkoId) => {
     try {
-      const { data } = await deleteFunko({
-        variables: { funkoId, collection: "wishlist" },
-      });
+      const { data } = await deleteFunko({ variables: { funkoId, collection: "myCollection" } });
+
       console.log("Funko deleted successfully:", data);
       // Optionally, update cache or state to reflect changes
     } catch (error) {

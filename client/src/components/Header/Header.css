@@ -1,38 +1,40 @@
 .headerContainer {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 15px 20px; 
-    background-color: #000000; 
-    color: #fff; 
-  }
-  
-  .headerTitle {
-    flex: 1; /* Title occupies 1/3 of the header */
-    font-size: 3.5rem;
-    text-align: center;
-    font-family: monospace;
-    text-decoration: underline;
-  }
-  
-  .navContainer {
-    flex: 2; /* Nav buttons occupy 2/3 of the header */
-    display: flex;
-    justify-content: space-around; 
-  }
-  
-  .navButton {
-    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent button background */
-    border: none; /* Removes default button border */
-    color: white;
-    padding: 10px 20px; 
-    font-size: 1em;
-    border-radius: 5px;
-    cursor: pointer; /* Changes cursor to pointer on hover */
-    transition: background-color 0.3s ease-in-out; 
-  }
-  
-  .navButton:hover {
-    background-color: rgba(255, 255, 255, 0.6); /* Lightens the background on hover */
-  }
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 15px 20px; 
+  background-color: #000000; 
+  color: #fff; 
+}
+
+.headerTitle {
+  font-size: 3.5rem;
+  font-family: monospace;
+  text-decoration: underline;
+  text-align: left; /* Align the title to the left */
+  margin-right: auto; /* Pushes the nav buttons to the right */
+}
+
+.navContainer {
+  display: flex;
+  justify-content: flex-end; /* Aligns the nav buttons to the right */
+  gap: 15px; /* Adds space between each button */
+  flex: 1; /* Takes up remaining space */
+}
+
+.navButton {
+  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent button background */
+  border: none; /* Removes default button border */
+  color: white; /* White text */
+  padding: 10px 20px; 
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.3s ease-in-out; 
+}
+
+.navButton:hover {
+  background-color: rgba(255, 255, 255, 0.6); /* Lightens the background on hover */
+}
+
   

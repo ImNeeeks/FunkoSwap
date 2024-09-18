@@ -5,12 +5,31 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer className="footerContainer">
+      <p className="footerText">Made by:</p>
       <ul className="footerList">
-        <li className="footerLink">placeholder</li>
-        <li className="footerLink">placeholder</li>
         <li className="footerLink">
-          <a href="https://github.com/scurvyirv?tab=repositories">
-            GitHub Profile
+          <a href="https://github.com/taperez1989" target="_blank" rel="noopener noreferrer">
+          taperez1989
+          </a>
+        </li>
+        <li className="footerLink">
+          <a href="https://github.com/ImNeeeks" target="_blank" rel="noopener noreferrer">
+          ImNeeeks
+          </a>
+        </li>
+        <li className="footerLink">
+          <a href="https://github.com/robscafe433" target="_blank" rel="noopener noreferrer">
+          robscafe433
+          </a>
+        </li>
+        <li className="footerLink">
+          <a href="https://github.com/scurvyirv" target="_blank" rel="noopener noreferrer">
+          scurvyirv
+          </a>
+        </li>
+        <li className="footerLink">
+          <a href="https://github.com/davehyler" target="_blank" rel="noopener noreferrer">
+          davehyler
           </a>
         </li>
       </ul>

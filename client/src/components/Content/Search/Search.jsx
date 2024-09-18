@@ -25,7 +25,7 @@ function Search() {
   const [fetchFunkos, { called, loading, data, error }] = useLazyQuery(
     SEARCH_FUNKOS,
     {
-      fetchPolicy:"no-cache",
+      fetchPolicy: "no-cache",
       variables: { searchTerm, limit },
       skip: !searchTerm, // Skip query execution if searchTerm is empty
       onCompleted: (data) => {
@@ -56,17 +56,26 @@ function Search() {
       switch (destination) {
         case "MyCollection":
           await addFunkoToMyCollection({ variables: { funkoId: funko._id } });
-          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to collection` }));
+          setMessages((prev) => ({
+            ...prev,
+            [funko._id]: `Added ${funko.title} to collection`,
+          }));
           console.log(`Added ${funko.title} to MyFunkoCollection`);
           break;
         case "MyWishlist":
           await addFunkoToWishlist({ variables: { funkoId: funko._id } });
-          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to wishlist` }));
+          setMessages((prev) => ({
+            ...prev,
+            [funko._id]: `Added ${funko.title} to wishlist`,
+          }));
           console.log(`Added ${funko.title} to MyFunkoWishlist`);
           break;
         case "MySale":
           await AddFunkoToCart({ variables: { funkoId: funko._id } });
-          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to cart` }));
+          setMessages((prev) => ({
+            ...prev,
+            [funko._id]: `Added ${funko.title} to cart`,
+          }));
           console.log(`Added ${funko.title} to MyFunkoSale`);
           break;
         default:
@@ -127,12 +136,13 @@ function Search() {
                   <div className="card-body">
                     <h5 className="card-title">{funko.title}</h5>
                     {/* <strong>{funko.title}</strong> */}
-                    <p>Price: ${funko.randomexampleprice?.toFixed(2) || 'N/A'}</p>
-
+                    <p>
+                      Price: ${funko.randomexampleprice?.toFixed(2) || "N/A"}
+                    </p>
 
                     {/* Display series */}
                     {funko.series?.length > 0 ? (
-                      <p>Series: {funko.series.join(', ')}</p> // Join series array into a string
+                      <p>Series: {funko.series.join(", ")}</p> // Join series array into a string
                     ) : (
                       <p>Series: N/A</p> // Fallback if no series
                     )}
@@ -145,14 +155,15 @@ function Search() {
                       Add to Wishlist
                     </button>
                     <button onClick={() => handleAddFunko(funko, "MySale")}>
-                      Add to Sale
+                      Add to Cart
                     </button>
                     {messages[funko._id] && (
-                      <div className={`notification mt-3 animate__animated animate__fadeIn`}>
+                      <div
+                        className={`notification mt-3 animate__animated animate__fadeIn`}
+                      >
                         {messages[funko._id]}
                       </div>
                     )}
-
 
                     {/* <a href="#" className="btn btn-primary">
                                             Go somewhere

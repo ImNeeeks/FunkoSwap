@@ -51,22 +51,22 @@ function Search() {
     console.log(searchResults);
   };
 
-  const handleAddFunko = async (funko, destination) => {
+  const handleAddFunko = async (funko, destination, collection) => {
     try {
       switch (destination) {
         case "MyCollection":
           await addFunkoToMyCollection({ variables: { funkoId: funko._id } });
-          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to MyFunkoCollection` }));
+          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to collection` }));
           console.log(`Added ${funko.title} to MyFunkoCollection`);
           break;
         case "MyWishlist":
           await addFunkoToWishlist({ variables: { funkoId: funko._id } });
-          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to MyFunkoCollection` }));
+          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to wishlist` }));
           console.log(`Added ${funko.title} to MyFunkoWishlist`);
           break;
         case "MySale":
           await AddFunkoToCart({ variables: { funkoId: funko._id } });
-          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to MyFunkoCollection` }));
+          setMessages(prev => ({ ...prev, [funko._id]: `Added ${funko.title} to cart` }));
           console.log(`Added ${funko.title} to MyFunkoSale`);
           break;
         default:

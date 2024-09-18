@@ -4,18 +4,19 @@ type Query {
   getFunko(searchTerm: String!, limit: Int!): [Funko]
   user(_id: ID!): User
   getWishlist: [Funko]
-  getMyCollection: [Funko]  
+  getMyCollection: [Funko]
+  getCart: [Funko]
 }
 
 
 type Funko {
-    _id: ID!
+     _id: ID!
     title: String!
     handle: String!
     imageName: String!
-    series: String
+    series: [String] 
     price: Float
-    category: String
+    randomexampleprice: Float
 }
 
 type User {
@@ -38,6 +39,7 @@ signUp(username: String!, email: String!, password: String!): Auth
 login(email: String!, password: String!): Auth
 addFunkoToMyCollection(funkoId: ID!): User
 addFunkoToWishlist(funkoId: ID!): User
+AddFunkoToCart(funkoId: ID!): User
 deleteFunko(_id: ID!): User
 }
 `;

@@ -1,5 +1,30 @@
 /* MyFunkoSale.css */
 
+.row {
+  max-height: 90vh; 
+  overflow-y: auto; 
+}
+
+.custom-card {
+  background-color: #333; 
+  border: 1px solid #ced4da; 
+  border-radius: 0.5rem; 
+}
+
+.collection-wrapper {
+  background-color: #f0f8ff; 
+  padding: 20px; 
+  min-height: 100vh; 
+}
+
+.collection-title {
+  text-align: center; 
+  font-weight: bold;  
+  text-transform: uppercase;
+  padding-top: 20px;
+  color: #292828
+}
+
 .outerContainer {
     display: flex;
     flex-wrap: wrap;

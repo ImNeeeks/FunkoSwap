@@ -2,7 +2,7 @@ import "./MyFunkoWishlist.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_WISHLIST } from "../../utils/queries";
 import "./MyFunkoWishlist.css";
-import { ADD_FUNKO_TO_CART } from '../../utils/mutations'; // Make sure this is defined
+import { ADD_FUNKO_TO_CART } from "../../utils/mutations"; // Make sure this is defined
 import { useState } from "react";
 import { DELETE_FUNKO } from "../../utils/mutations";
 
@@ -23,10 +23,11 @@ function Wishlist() {
       const { data } = await AddFunkoToCart({ variables: { funkoId } });
       console.log("Mutation response:", data); // Log the response
       if (data.AddFunkoToCart) {
-        setMessages(prev => {
+        setMessages((prev) => {
           const newMessages = {
             ...prev,
-            [data.AddFunkoToCart._id]: `Added ${data.AddFunkoToCart.title} to Cart`
+            [data.AddFunkoToCart
+              ._id]: `Added ${data.AddFunkoToCart.title} to Cart`,
           };
           console.log("Updated messages:", newMessages); // Log updated messages
           return newMessages;
@@ -41,7 +42,9 @@ function Wishlist() {
 
   const handleDelete = async (funkoId) => {
     try {
-      const { data } = await deleteFunko({ variables: { funkoId, collection: "wishlist" } });
+      const { data } = await deleteFunko({
+        variables: { funkoId, collection: "wishlist" },
+      });
       console.log("Funko deleted successfully:", data);
       // Optionally, update cache or state to reflect changes
     } catch (error) {
@@ -50,7 +53,7 @@ function Wishlist() {
   };
 
   return (
-    <div>
+    <div className="collection-wrapper">
       <h2 className="collection-title">My Wishlist</h2>
       {wishlist.length === 0 ? (
         <p>Your wishlist is empty.</p>
@@ -67,16 +70,19 @@ function Wishlist() {
                 />
                 <div className="card-body text-center">
                   <h5 className="card-title">{funko.title}</h5>
-                  <p>Price: ${funko.randomexampleprice?.toFixed(2) || 'N/A'}</p>
-
+                  <p>Price: ${funko.randomexampleprice?.toFixed(2) || "N/A"}</p>
 
                   {/* Display series */}
                   {funko.series?.length > 0 ? (
-                    <p>Series: {funko.series.join(', ')}</p> // Join series array into a string
+                    <p>Series: {funko.series.join(", ")}</p> // Join series array into a string
                   ) : (
                     <p>Series: N/A</p> // Fallback if no series
                   )}
-                  <button className="btn btn-danger bg" onClick={() => handleDelete(funko._id)}>
+                  <button
+                    className="btn btn-danger bg fixed-width-button"
+                    style={{ width: "150px" }}
+                    onClick={() => handleDelete(funko._id)}
+                  >
                     Delete
                   </button>
                   <button
@@ -87,7 +93,9 @@ function Wishlist() {
                     Add to Cart
                   </button>
                   {messages[funko._id] && (
-                    <div className={`notification mt-3 animate__animated animate__fadeIn`}>
+                    <div
+                      className={`notification mt-3 animate__animated animate__fadeIn`}
+                    >
                       {messages[funko._id]}
                     </div>
                   )}

@@ -46,7 +46,7 @@ function Wishlist() {
         variables: { funkoId, collection: "wishlist" },
       });
       console.log("Funko deleted successfully:", data);
-      // Optionally, update cache or state to reflect changes
+      window.location.reload();
     } catch (error) {
       console.error("Error deleting Funko:", error);
     }

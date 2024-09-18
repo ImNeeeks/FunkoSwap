@@ -6,70 +6,120 @@ FunkoSwap brings together Funko enthusiasts into a centralized platform that whe
 
 ## Table of Contents
 
-- public
-  - images
-- src
-  - components
-    - Content
-      - Content.css
-      - Content.jsx
-    - Footer
-      - Footer.css
-      - Footer.jsx
-    - Header
-      - Header.css
-      - Header.jsx
-  - pages
-    - AboutMe
-      - AboutMe.css
-      - AboutMe.jsx
-    - Contact
-      - Contact.css
-      - Contact.jsx
-    - Projects
-      - Projects.css
-      - Projects.jsx
-    - Resume
-      - Resume.css
-      - Resume.jsx
-  - App.css
-  - App.jsx
-  - main.jsx
-- gitignore
-- eslint.config.js
-- index.html
-- LICENSE
-- package.json
-- readme.md
-- vite.config.js
+- client
+
+  - src
+    - components
+      - Content
+        - Login
+          - Login.css
+          - Login.jsx
+          - loginForm.jsx
+        - MyFunkos
+          - MyFunkoCollection
+            - MyFunkoCollection.css
+            - MyFunkoCollection.jsx
+          - MyFunkoSale
+            - MyFunkoSale.css
+            - MyFunkoSale.jsx
+          - MyFunkoWishlist
+            - MyFunkoWishlist.css
+            - MyFunkoWishlist.jsx
+        - OtherFunkos
+          - OtherCollections
+            - OtherCollections.css
+            - OtherCollections.jsx
+          - OtherSales
+            - OtherSales.css
+            - OtherSales.jsx
+        - Search
+          - Search.css
+          - Search.jsx
+        - signUp
+          - signUpForm.css
+          - signUpForm.jsx
+        - utils
+          - auth.js
+          - mutations.js
+          - queries.js
+      - Footer
+        - Footer.css
+        - Footer.jsx
+      - Header
+        - Header.css
+        - Header.jsx
+      - ProtectedRoutes.jsx
+    - App.css
+    - App.jsx
+    - index.css
+    - main.jsx
+  - .gitignore
+  - eslint.config.js
+  - index.html
+  - package.json
+  - vite.config.js
+  - public
+    - images
+  - server
+
+    - config
+      - connection.js
+    - models
+      - category.js
+      - funko.js
+      - index.js
+      - user.js
+      - wishlist.js
+    - schemas
+      - index.js
+      - resolvers.js
+      - typeDefs.js
+    - utils
+      - auth.js
+    - .env
+    - .gitignore
+    - package.json
+    - server.js
+
+  - package.json
+  - README.md
 
 ## Tasks
 
-- WHEN I complete installation and seeding, THEN I can run the server and view the default page as 'About Me'
-- WHEN I hover over the navigation bar, THEN I see responsive buttons that take me to the respective view
-- WHEN I click 'contact' on the nav bar, THEN I am contents of the middle of the page change to a form
-- WHEN I enter information on the contact page, THEN I am alerted when incomplete fields are left or when invalid emails are provided; otherwise, I am notified that message is sent
-- WHEN I click 'projects' on the nav bar, THEN I see the middle section populated with projects that are responsive upon hover
-- WHEN I click a project, THEN I am directed to the project page on click
-- WHEN I click 'resume' on the nav bar, THEN I see the middle section populated with the web developer's skill set and an option to download their resume
-- WHEN I click on the responsive links on the nav bar, THEN I see the URL change with respect to the content that renders
+- WHEN I launch the application on render, THEN I am directed to the login/sign-up page
+- WHEN I enter the credentials required for signing up, THEN I am able to sign in
+- WHEN I enter invalid information, THEN I receive warning messages to re-enter valid credentials or valid user login criteria
+- WHEN I login, THEN I am directed to the Search page and can simultaneously view the navigation bar on the Header under the title
+- WHEN I enter a search query and press 'search', THEN I am brought search results for the respective query or I am notified that there are no results that match my query
+- WHEN I view a Funko search result, THEN I am presented with three buttons to add the Funko to either my collection, wishlist, or cart
+- WHEN I click a button the Funko from the search result, THEN I see a message indicating that the Funko has been added to the respective component
+- WHEN I click the collection, wishlist, or cart button on the navigation bar of the Header, THEN the middle component re-renders to display Funkos the user added to its respective component
+- WHEN I view Funkos on the collection, wishlist, or cart component, THEN I see a button to DELETE the Funko if I choose to delete the Funko
+- WHEN I view Funkos on the wishlist component, THEN I see a button to add the Funko to cart
+- WHEN I click the LOGOUT button on the navigation bar, THEN my session is terminated and I am prompted to return back to the screen
 
 ## Usage
 
-Here is quick look at the projects component of this application.
-![sample project view](./public/images/SSreact.png)
+- INSERT SCREENSHOT OR GIF HERE
 
 ## Links
 
-- Deployed Webpage: https://teal-longma-3f68b3.netlify.app/
-- GitHub Repo Page: https://github.com/scurvyirv/portfile
+- Deployed Webpage: INSERT RENDER LINK HERE
+- GitHub Repo Page: https://github.com/ImNeeeks/FunkoSwap/
 
 ## Credits
 
-- React: https://www.npmjs.com/package/react
-- Vite: https://www.npmjs.com/package/vite
-- React Router: https://www.npmjs.com/package/react-router-dom
-- ES Lint: https://www.npmjs.com/package/eslint
+- Front-End
+  - React: https://www.npmjs.com/package/react
+  - Vite: https://www.npmjs.com/package/vite
+  - React Router: https://www.npmjs.com/package/react-router-dom
+  - ES Lint: https://www.npmjs.com/package/eslint
+  - Bootstrap: https://www.npmjs.com/package/bootstrap
+- Back-End
+  - GraphQL: https://www.npmjs.com/package/graphql
+  - JSON Web Token: https://www.npmjs.com/package/jsonwebtoken
+  - Apollo: https://www.npmjs.com/package/@apollo/client
+  - Express: https://www.npmjs.com/package/express
 
 ## License
 

@@ -32,15 +32,14 @@ export const LOGIN_USER = gql`
 export const ADD_FUNKO_TO_WISHLIST = gql`
   mutation addFunkoToWishlist($funkoId: ID!) {
     addFunkoToWishlist(funkoId: $funkoId) {
-      username
-      email
+      _id
     }
   }
 `;
 
 // Add funko to MyCollection mutation
 export const ADD_FUNKO_TO_MYCOLLECTION = gql`
-  mutation AddFunkoToMyCollection($funkoId: ID!) {
+  mutation addFunkoToMyCollection($funkoId: ID!) {
     addFunkoToMyCollection(funkoId: $funkoId) {
       _id
     }
@@ -52,14 +51,24 @@ export const ADD_FUNKO_TO_CART = gql`
   mutation AddFunkoToCart($funkoId: ID!) {
     AddFunkoToCart(funkoId: $funkoId) {
       _id
+    
+    }
+  }
+`;
+
+export const DELETE_FUNKO = gql`
+  mutation deleteFunko($funkoId: ID!, $collection: String!) {
+    deleteFunko(funkoId: $funkoId, collection: $collection) {
+      _id
       username
-      email
+      myCollection {
+        _id
+      }
+      wishList {
+        _id
+      }
       cart {
         _id
-        title
-        imageName
-        series
-        price
       }
     }
   }

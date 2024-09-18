@@ -172,14 +172,37 @@ const resolvers = {
         throw new Error("Error adding Funko to wishlist");
       }
     },
-    deleteFunko: async (parent, args) => {
-      return User.findByIdAndUpdate(
-        { _id: user },
-        { $pull: { wishList: { _id: args } } },
-        { new: true }
-      );
-    },
+    deleteFunko: async (_, { funkoId, collection }, { user }) => {
+      if (!user) {
+        throw new Error("Not authenticated");
+      }
+      try {
+        let updateQuery;
+        switch (collection) {
+          case 'wishlist':
+            updateQuery = { $pull: { wishList: funkoId } };
+            break;
+          case 'cart':
+            updateQuery = { $pull: { cart: funkoId } };
+            break;
+          case 'myCollection':
+            updateQuery = { $pull: { myCollection: funkoId } };
+            break;
+          default:
+            throw new Error("Invalid collection specified");
+        }
+        const updatedUser = await User.findByIdAndUpdate(
+          user._id,
+          updateQuery,
+          { new: true }
+        );
+        return updatedUser;
+      } catch (error) {
+        throw new Error("Error deleting Funko");
+      }
+    }
   },
 };
+
 
 module.exports = resolvers;

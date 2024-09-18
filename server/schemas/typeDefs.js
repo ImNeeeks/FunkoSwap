@@ -40,7 +40,7 @@ login(email: String!, password: String!): Auth
 addFunkoToMyCollection(funkoId: ID!): User
 addFunkoToWishlist(funkoId: ID!): User
 AddFunkoToCart(funkoId: ID!): User
-deleteFunko(_id: ID!): User
+deleteFunko(funkoId: ID!, collection: String!): User
 }
 `;
 

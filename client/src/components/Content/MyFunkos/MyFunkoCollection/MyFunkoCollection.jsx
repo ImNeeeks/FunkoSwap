@@ -2,23 +2,29 @@ import React from "react";
 import "./MyFunkoCollection.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_COLLECTION } from "../../utils/queries";
+import { DELETE_FUNKO } from "../../utils/mutations";
+
 
 function MyFunkoCollection() {
   const { loading, error, data } = useQuery(GET_COLLECTION);
+  const [deleteFunko] = useMutation(DELETE_FUNKO);
+
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
 
   const currentCollection = data?.getMyCollection || [];
 
-  // const handleAddToCart = async (funkoId) => {
-  //   // try {
-  //   //   await addFunkoToCart({ variables: { funkoId } });
-  //   //   // Optionally, refetch or update the cache to reflect changes immediately
-  //   // } catch (e) {
-  //   //   console.error("Error adding Funko to cart", e);
-  //   // }
-  // };
+  
+  const handleDelete = async (funkoId) => {
+    try {
+      const { data } = await deleteFunko({ variables: { funkoId, collection: "wishlist" } });
+      console.log("Funko deleted successfully:", data);
+      // Optionally, update cache or state to reflect changes
+    } catch (error) {
+      console.error("Error deleting Funko:", error);
+    }
+  };
 
   return (
     <div>
@@ -47,9 +53,12 @@ function MyFunkoCollection() {
                   ) : (
                     <p>Series: N/A</p> // Fallback if no series
                   )}
-                  {/* <button onClick={() => handleAddToCart(funko._id)}>
-                    Add to Cart
-                  </button> */}
+                  <button
+                    className="btn btn-danger bg fixed-width-button"
+                    style={{ width: "150px" }}
+                    onClick={() => handleDelete(funko._id)}>
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>

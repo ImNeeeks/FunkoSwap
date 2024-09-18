@@ -109,7 +109,7 @@ function Header(props) {
                   buttonStyle.backgroundColor)
               }
             >
-              SALES
+              CART
             </button>
           </Link>
 

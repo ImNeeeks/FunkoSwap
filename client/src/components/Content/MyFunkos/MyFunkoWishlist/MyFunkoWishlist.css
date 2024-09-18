@@ -1,9 +1,15 @@
 /* MyFunkoWishlist.css */
 
 .custom-card {
-  background-color: #97bcf7; 
+  background-color: #333; 
   border: 1px solid #ced4da; 
   border-radius: 0.5rem; /* Optional: Add rounded corners */
+}
+
+.collection-wrapper {
+  background-color: #f0f8ff; /* Change this to your desired background color */
+  padding: 20px; /* Optional: Add some padding */
+  min-height: 100vh; /* Optional: Ensure it covers the full height of the viewport */
 }
 
 .collection-title {
@@ -12,6 +18,7 @@
   font-weight: bold;  
   text-transform: uppercase;
   padding-top: 20px;
+  color: #292828
 }
 
 .notification {

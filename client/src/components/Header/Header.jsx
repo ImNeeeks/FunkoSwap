@@ -3,6 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import auth from "../Content/utils/auth";
+import batmanGif from "../../../../public/images/batman.gif";
+import hagridGif from "../../../../public/images/hagrid.gif";
 
 // useEffect will change how page appears before and after
 // this component includes the nav bar and its JS
@@ -24,6 +26,28 @@ function Header(props) {
     padding: "15px 20px",
     backgroundColor: "#000000",
     color: "#fff",
+  };
+
+  const titleWrapperStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    gap: "20px", // Adds space between GIFs and title
+  };
+
+  const gifContainerStyle = {
+    width: "100px", // Set the square size
+    height: "100px", // Same size as width for a square
+    overflow: "hidden", // Hide the extra width
+    display: "flex",
+    justifyContent: "center", // Center the GIF horizontally
+    alignItems: "center", // Center the GIF vertically
+  };
+
+  const gifStyle = {
+    width: "100px",
+    height: "auto",
   };
 
   const titleStyle = {
@@ -62,7 +86,15 @@ function Header(props) {
 
   return (
     <header style={headerStyle}>
-      <h1 style={titleStyle}>FunkoSwap</h1>
+      <div style={titleWrapperStyle}>
+        <div style={gifContainerStyle}>
+          <img src={batmanGif} alt="left gif of batman" style={gifStyle} />
+        </div>
+        <h1 style={titleStyle}>FunkoSwap</h1>
+        <div style={gifContainerStyle}>
+          <img src={hagridGif} alt="right gif of hagrid" style={gifStyle} />
+        </div>
+      </div>
       {loggedIn && (
         <nav style={navContainerStyle}>
           <Link to="/app/myCollection">

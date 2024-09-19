@@ -120,6 +120,8 @@ FunkoSwap brings together Funko enthusiasts into a centralized platform that whe
   - JSON Web Token: https://www.npmjs.com/package/jsonwebtoken
   - Apollo: https://www.npmjs.com/package/@apollo/client
   - Express: https://www.npmjs.com/package/express
+  - MongoDB: https://www.npmjs.com/package/mongodb
+  - Mongoose: https://www.npmjs.com/package/mongoose
 
 ## License
 

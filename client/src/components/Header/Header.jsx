@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import auth from "../Content/utils/auth";
 import batmanGif from "../../../../public/images/batman.gif";
 import hagridGif from "../../../../public/images/hagrid.gif";
+import capamGif from "../../../../public/images/capam.gif";
 
 // useEffect will change how page appears before and after
 // this component includes the nav bar and its JS
@@ -88,11 +89,19 @@ function Header(props) {
     <header style={headerStyle}>
       <div style={titleWrapperStyle}>
         <div style={gifContainerStyle}>
-          <img src={batmanGif} alt="left gif of batman" style={gifStyle} />
+          <img
+            src={capamGif}
+            alt="left gif of captain america"
+            style={gifStyle}
+          />
         </div>
         <h1 style={titleStyle}>FunkoSwap</h1>
         <div style={gifContainerStyle}>
-          <img src={hagridGif} alt="right gif of hagrid" style={gifStyle} />
+          <img
+            src={capamGif}
+            alt="right gif of captain america"
+            style={gifStyle}
+          />
         </div>
       </div>
       {loggedIn && (

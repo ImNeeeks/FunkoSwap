@@ -127,8 +127,15 @@ FunkoSwap brings together Funko enthusiasts into a centralized platform that whe
   - JSON Web Token: https://www.npmjs.com/package/jsonwebtoken
   - Apollo: https://www.npmjs.com/package/@apollo/client
   - Express: https://www.npmjs.com/package/express
-  - MongoDB: https://www.npmjs.com/package/mongodb
-  - Mongoose: https://www.npmjs.com/package/mongoose
+
+  - Funko Database with JSON format: https://github.com/kennymkchan/funko-pop-data
+  - Dave's reformatted Funko Database: https://github.com/davehyler/Group-4-s-Funko-Inventory/
+- Instructor Teaching Assistants, and Tutors
+  - Farish Kashefinejad
+  - Erik Hirsch
+  - Anthony Barragan
+  - Alexis San Javier
+
 
 ## License
 

@@ -6,6 +6,7 @@ type Query {
   getWishlist: [Funko]
   getMyCollection: [Funko]
   getCart: [Funko]
+  getUserProfile(username: String!): Profile
 }
 
 
@@ -26,7 +27,14 @@ type User {
   password: String!
   myCollection: [Funko]  
   wishList: [Funko]    
-  cart: [Funko]         
+  cart: [Funko]   
+  profile: Profile       
+}
+
+type Profile {
+  bio: String
+  avatar: String
+  forSale: [FunkoForSale]
 }
 
 type Auth {
@@ -41,6 +49,7 @@ addFunkoToMyCollection(funkoId: ID!): User
 addFunkoToWishlist(funkoId: ID!): User
 AddFunkoToCart(funkoId: ID!): User
 deleteFunko(funkoId: ID!, collection: String!): User
+addFunkoForSale(funkoId: ID!, price: Float!): Profile
 }
 `;
 

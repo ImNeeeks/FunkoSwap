@@ -58,28 +58,31 @@ FunkoSwap brings together Funko enthusiasts into a centralized platform that whe
   - index.html
   - package.json
   - vite.config.js
-  - public
-    - images
-  - server
 
-    - config
-      - connection.js
-    - models
-      - category.js
-      - funko.js
-      - index.js
-      - user.js
-      - wishlist.js
-    - schemas
-      - index.js
-      - resolvers.js
-      - typeDefs.js
-    - utils
-      - auth.js
-    - .env
-    - .gitignore
-    - package.json
-    - server.js
+- public
+
+  - images
+
+- server
+
+  - config
+    - connection.js
+  - models
+    - category.js
+    - funko.js
+    - index.js
+    - user.js
+    - wishlist.js
+  - schemas
+    - index.js
+    - resolvers.js
+    - typeDefs.js
+  - utils
+    - auth.js
+  - .env
+  - .gitignore
+  - package.json
+  - server.js
 
   - package.json
   - README.md
@@ -100,11 +103,15 @@ FunkoSwap brings together Funko enthusiasts into a centralized platform that whe
 
 ## Usage
 
-- INSERT SCREENSHOT OR GIF HERE
+- Here what a user's collection looks like:
+  ![view of collection](./public/images/newSScollect.png)
+
+- Here is what the search component looks like:
+  ![view of search](./public/images/newSSsearch.png)
 
 ## Links
 
-- Deployed Webpage: INSERT RENDER LINK HERE
+- Deployed Webpage: https://funkoswap.onrender.com
 - GitHub Repo Page: https://github.com/ImNeeeks/FunkoSwap/
 
 ## Credits
@@ -120,6 +127,15 @@ FunkoSwap brings together Funko enthusiasts into a centralized platform that whe
   - JSON Web Token: https://www.npmjs.com/package/jsonwebtoken
   - Apollo: https://www.npmjs.com/package/@apollo/client
   - Express: https://www.npmjs.com/package/express
+
+  - Funko Database with JSON format: https://github.com/kennymkchan/funko-pop-data
+  - Dave's reformatted Funko Database: https://github.com/davehyler/Group-4-s-Funko-Inventory/
+- Instructor Teaching Assistants, and Tutors
+  - Farish Kashefinejad
+  - Erik Hirsch
+  - Anthony Barragan
+  - Alexis San Javier
+
 
 ## License
 

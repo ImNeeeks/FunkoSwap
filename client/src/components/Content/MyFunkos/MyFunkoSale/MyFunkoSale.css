@@ -1,6 +1,98 @@
 /* MyFunkoSale.css */
 
-.row {
+
+/* Layout */
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 5fr 2fr;
+  gap: 20px;
+  min-height: 100vh;
+}
+
+/* Neon Border Keyframes */
+@keyframes neon-border {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2), 0 0 10px rgba(0, 123, 255, 0.4),
+                0 0 15px rgba(0, 123, 255, 0.6), 0 0 20px rgba(0, 123, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.4), 0 0 20px rgba(0, 123, 255, 0.6),
+                0 0 30px rgba(0, 123, 255, 0.8), 0 0 40px rgba(0, 123, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2), 0 0 10px rgba(0, 123, 255, 0.4),
+                0 0 15px rgba(0, 123, 255, 0.6), 0 0 20px rgba(0, 123, 255, 0.8);
+  }
+}
+
+/* Vertical Title Container with Neon Border */
+.vertical-title-container {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 2px;
+  color: #007bff; /* Bootstrap primary blue */
+  padding: 10px;
+  border-radius: 5px;
+  border: 4px solid transparent;
+  animation: neon-border 2s infinite alternate;
+}
+
+/* Styling for Vertical Text */
+.vertical-title {
+  font-size: 3.5rem;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  line-height: 1.5; /* Vertical spacing */
+}
+
+/* Funko Cards Section */
+.cart-funkos-section .row {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.custom-card {
+  background-color: #333;
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+}
+
+/* Summary and Total Section */
+.cart-summary-section {
+  background-color: #1b76d8;
+  padding: 20px;
+  border-radius: 10px;
+}
+.summary {
+  color: rgb(173, 172, 172);
+}
+.summary-list {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.summary-list li {
+  margin-bottom: 10px;
+}
+
+.list-group-item {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+}
+
+.total-section {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: right;
+  color: rgb(173, 172, 172);
+}
+
+
+/* .row {
   max-height: 90vh; 
   overflow-y: auto; 
 }
@@ -78,4 +170,4 @@
     background-color: #218838;
     transform: scale(1.1);
   }
-  
+   */

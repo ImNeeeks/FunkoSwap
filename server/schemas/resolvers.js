@@ -99,21 +99,57 @@ const resolvers = {
       }
     },
     getUserProfile: async (_, { username }, context) => {
+      // Ensure the user is authenticated
+      if (!context.user) {
+        throw new Error("Not authenticated");
+      }
+
       try {
         // Find the user by username
-        const user = await User.findOne({ username }).populate(
-          "profile.forSale"
-        );
+        const user = await User.findOne({ username })
+          .populate("myCollection")
+          .populate("wishList")
+          .populate("cart")
+          .populate("profile.forSale");
+
         if (!user) {
           throw new Error("User not found");
         }
 
-        // Return the profile information
-        return user.profile;
+        // Return the user profile details
+        return {
+          username: user.username,
+          bio: user.profile.bio,
+          avatar: user.profile.avatar,
+          forSale: user.profile.forSale,
+          myCollection: user.myCollection,
+          wishlist: user.wishList,
+        };
       } catch (error) {
         console.error("Error fetching user profile:", error);
         throw new Error("Failed to fetch user profile");
       }
+      // getUserProfile: async (_, { username }, context) => {
+      //   // Ensure the user is authenticated
+      //   if (!context.user) {
+      //     throw new Error("Not authenticated");
+      //   }
+
+      //   try {
+      //     // Assuming `User.findOne` will fetch a user and populate their collection
+      //     const userWithProfile = await User.findOne({
+      //       _id: context.user._id,
+      //     }).populate("myProfile");
+
+      //     const profileItems = userWithProfile ? userWithProfile.myProfile : [];
+
+      //     let data = JSON.stringify(profileItems);
+      //     data = JSON.parse(data);
+
+      //     return data;
+      //   } catch (error) {
+      //     throw new Error("Error fetching collection");
+      //   }
     },
   },
   Mutation: {

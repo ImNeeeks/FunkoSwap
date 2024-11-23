@@ -9,6 +9,7 @@ import MyFunkoCollection from "./components/Content/MyFunkos/MyFunkoCollection/M
 import MyFunkoWishlist from "./components/Content/MyFunkos/MyFunkoWishlist/MyFunkoWishlist.jsx";
 import MyFunkoSale from "./components/Content/MyFunkos/MyFunkoSale/MyFunkoSale.jsx";
 import Search from "./components/Content/Search/Search.jsx";
+import MyProfile from "./components/Content/Profiles/MyProfile.jsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 
 //gives URL paths for each component
@@ -42,10 +43,10 @@ const router = createBrowserRouter([
         path: "/app/Search",
         element: <ProtectedRoutes element={<Search />}></ProtectedRoutes>,
       },
-      // {
-      //   path: "/app/otherSales",
-      //   element: <ProtectedRoutes element={<OtherSales />}></ProtectedRoutes>,
-      // },
+      {
+        path: "/app/myProfile",
+        element: <ProtectedRoutes element={<MyProfile />}></ProtectedRoutes>,
+      },
     ],
   },
 ]);

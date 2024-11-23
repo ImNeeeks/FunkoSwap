@@ -154,6 +154,22 @@ function Header(props) {
             </button>
           </Link>
 
+          <Link to="/app/myProfile">
+            <button
+              style={buttonStyle}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  buttonHoverStyle.backgroundColor)
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  buttonStyle.backgroundColor)
+              }
+            >
+              MY PROFILE
+            </button>
+          </Link>
+
           <Link to="/app/Search">
             <button
               style={buttonStyle}

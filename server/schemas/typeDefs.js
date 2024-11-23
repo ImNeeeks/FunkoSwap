@@ -6,12 +6,12 @@ type Query {
   getWishlist: [Funko]
   getMyCollection: [Funko]
   getCart: [Funko]
-  getUserProfile(username: String!): Profile
+  getUserProfile(username: String!): [Profile]
 }
 
 
 type Funko {
-     _id: ID!
+    _id: ID!
     title: String!
     handle: String!
     imageName: String!
@@ -28,14 +28,21 @@ type User {
   myCollection: [Funko]  
   wishList: [Funko]    
   cart: [Funko]   
-  profile: Profile       
+  profile: [Profile]       
 }
 
 type Profile {
+  _id: ID!
   bio: String
   avatar: String
   forSale: [FunkoForSale]
 }
+
+type FunkoForSale {
+  funkoId: ID!
+  price: Float!
+}
+
 
 type Auth {
     token: ID!

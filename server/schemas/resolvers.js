@@ -36,7 +36,7 @@ const resolvers = {
         }).limit(maxLimit);
         let data = JSON.stringify(funkos);
         data = JSON.parse(data);
-       
+
         console.log("funkos:", funkos);
 
         return data;
@@ -53,7 +53,9 @@ const resolvers = {
 
       try {
         // Fetch the user and populate their cart
-        const userWithCart = await User.findOne({ _id: context.user._id }).populate("cart");
+        const userWithCart = await User.findOne({
+          _id: context.user._id,
+        }).populate("cart");
         const cartItems = userWithCart ? userWithCart.cart : []; // Get the cart items or an empty array if none exist
 
         // Convert the cart items to JSON
@@ -71,7 +73,6 @@ const resolvers = {
       return User.find(params);
     },
     getWishlist: async (parent, args, context) => {
-      
       // Ensure the user is authenticated
       if (!context.user) {
         throw new Error("Not authenticated");
@@ -95,19 +96,20 @@ const resolvers = {
       }
     },
     getMyCollection: async (parent, args, context) => {
-      
       // Ensure the user is authenticated
       if (!context.user) {
         throw new Error("Not authenticated");
       }
-      
+
       try {
         // Assuming `User.findOne` will fetch a user and populate their collection
         const userWithMyCollection = await User.findOne({
           _id: context.user._id,
         }).populate("myCollection");
 
-        const collectionItems = userWithMyCollection ? userWithMyCollection.myCollection : [];
+        const collectionItems = userWithMyCollection
+          ? userWithMyCollection.myCollection
+          : [];
 
         let data = JSON.stringify(collectionItems);
         data = JSON.parse(data);
@@ -117,7 +119,59 @@ const resolvers = {
         throw new Error("Error fetching collection");
       }
     },
+    getUserProfile: async (_, { username }, context) => {
+      // Ensure the user is authenticated
+      if (!context.user) {
+        throw new Error("Not authenticated");
+      }
 
+      try {
+        // Find the user by username
+        const user = await User.findOne({ username })
+          .populate("myCollection")
+          .populate("wishList")
+          .populate("cart")
+          .populate("profile.forSale");
+
+        if (!user) {
+          throw new Error("User not found");
+        }
+
+        // Return the user profile details
+        return {
+          username: user.username,
+          bio: user.profile.bio,
+          avatar: user.profile.avatar,
+          forSale: user.profile.forSale,
+          myCollection: user.myCollection,
+          wishlist: user.wishList,
+        };
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+        throw new Error("Failed to fetch user profile");
+      }
+      // getUserProfile: async (_, { username }, context) => {
+      //   // Ensure the user is authenticated
+      //   if (!context.user) {
+      //     throw new Error("Not authenticated");
+      //   }
+
+      //   try {
+      //     // Assuming `User.findOne` will fetch a user and populate their collection
+      //     const userWithProfile = await User.findOne({
+      //       _id: context.user._id,
+      //     }).populate("myProfile");
+
+      //     const profileItems = userWithProfile ? userWithProfile.myProfile : [];
+
+      //     let data = JSON.stringify(profileItems);
+      //     data = JSON.parse(data);
+
+      //     return data;
+      //   } catch (error) {
+      //     throw new Error("Error fetching collection");
+      //   }
+    },
   },
   Mutation: {
 
@@ -181,7 +235,7 @@ const resolvers = {
       }
 
       try {
-        // Find or create the wishlist for the user
+        // Find or create the cart for the user
         let userData = await User.findOneAndUpdate(
           { _id: user._id },
           { $addToSet: { cart: funkoId } },
@@ -191,7 +245,7 @@ const resolvers = {
         return userData;
       } catch (error) {
         console.log(error);
-        throw new Error("Error adding Funko to wishlist");
+        throw new Error("Error adding Funko to cart");
       }
     },
     deleteFunko: async (_, { funkoId, collection }, { user }) => {
@@ -201,13 +255,13 @@ const resolvers = {
       try {
         let updateQuery;
         switch (collection) {
-          case 'wishlist':
+          case "wishlist":
             updateQuery = { $pull: { wishList: funkoId } };
             break;
-          case 'cart':
+          case "cart":
             updateQuery = { $pull: { cart: funkoId } };
             break;
-          case 'myCollection':
+          case "myCollection":
             updateQuery = { $pull: { myCollection: funkoId } };
             break;
           default:
@@ -222,9 +276,33 @@ const resolvers = {
       } catch (error) {
         throw new Error("Error deleting Funko");
       }
-    }
+    },
+    addFunkoForSale: async (_, { funkoId, price }, { user }) => {
+      if (!user) {
+        throw new Error("Not authenticated");
+      }
+
+      try {
+        // Find the user and update their forSale list
+        const funkoForSale = { funkoId, price };
+        const updatedProfile = await User.findOneAndUpdate(
+          { _id: user._id },
+          { $addToSet: { "profile.forSale": funkoForSale } },
+          { new: true }
+        ).populate("profile.forSale");
+
+        if (!updatedProfile) {
+          throw new Error("Profile not found for this user");
+        }
+
+        // Return the profile with the updated forSale list
+        return updatedProfile.profile;
+      } catch (error) {
+        console.error("Error adding Funko to forSale:", error);
+        throw new Error("Failed to add Funko for sale");
+      }
+    },
   },
 };
-
 
 module.exports = resolvers;

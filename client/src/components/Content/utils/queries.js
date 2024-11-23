@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 export const GET_COLLECTION = gql`
   query GetMyCollection {
     getMyCollection {
-       _id
+      _id
       title
       imageName
       series
@@ -16,7 +16,7 @@ export const GET_COLLECTION = gql`
 export const GET_WISHLIST = gql`
   query GetWishlist {
     getWishlist {
-        _id
+      _id
       title
       imageName
       series
@@ -26,16 +26,15 @@ export const GET_WISHLIST = gql`
   }
 `;
 
-
 export const SEARCH_FUNKOS = gql`
   query SearchFunkos($searchTerm: String!, $limit: Int!) {
     getFunko(searchTerm: $searchTerm, limit: $limit) {
-     _id
-    title
-    imageName
-    series
-    price
-    randomexampleprice
+      _id
+      title
+      imageName
+      series
+      price
+      randomexampleprice
     }
   }
 `;
@@ -53,8 +52,35 @@ export const GET_CART = gql`
   }
 `;
 
+export const GET_USER_PROFILE = gql`
+  query getUserProfile($username: String!) {
+    getUserProfile(username: $username) {
+      username
+      bio
+      avatar
+      forSale {
+        _id
+        title
+        price
+        imageName
+      }
+      myCollection {
+        _id
+        title
+        imageName
+      }
+      wishlist {
+        _id
+        title
+        imageName
+      }
+    }
+  }
+`;
+
 export const CHECKOUT = gql`
   query checkoutCart {
     createCheckoutSession
   }
 `
+

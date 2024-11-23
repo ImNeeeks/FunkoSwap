@@ -9,6 +9,7 @@ import MyFunkoCollection from "./components/Content/MyFunkos/MyFunkoCollection/M
 import MyFunkoWishlist from "./components/Content/MyFunkos/MyFunkoWishlist/MyFunkoWishlist.jsx";
 import MyFunkoSale from "./components/Content/MyFunkos/MyFunkoSale/MyFunkoSale.jsx";
 import Search from "./components/Content/Search/Search.jsx";
+import MyProfile from "./components/Content/Profiles/MyProfile.jsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 import Success from "./components/Content/MyFunkos/MyFunkoSale/success.jsx";
 import Cancel from "./components/Content/MyFunkos/MyFunkoSale/cancel.jsx";
@@ -45,6 +46,9 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes element={<Search />}></ProtectedRoutes>,
       },
       {
+        path: "/app/myProfile",
+        element: <ProtectedRoutes element={<MyProfile />}></ProtectedRoutes>,
+      },
         path: "/app/Success",
         element: <Success/>
       },

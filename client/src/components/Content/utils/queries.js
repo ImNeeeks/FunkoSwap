@@ -77,3 +77,10 @@ export const GET_USER_PROFILE = gql`
     }
   }
 `;
+
+export const CHECKOUT = gql`
+  query checkoutCart {
+    createCheckoutSession
+  }
+`
+

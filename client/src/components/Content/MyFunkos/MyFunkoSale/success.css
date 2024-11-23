@@ -1,0 +1,45 @@
+/* success.css */
+
+/* Basic reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    /* Light background color */
+    color: #333;
+    /* Dark text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* App container styles */
+.App {
+    text-align: center;
+    width: 100%;
+}
+
+/* Header styling */
+.App-header {
+    background-color: #4CAF50;
+    /* Green background for success */
+    color: white;
+    /* White text color */
+    padding: 40px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+.App-header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+}

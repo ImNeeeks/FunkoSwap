@@ -7,6 +7,7 @@ type Query {
   getMyCollection: [Funko]
   getCart: [Funko]
   getUserProfile(username: String!): [Profile]
+  createCheckoutSession: String
 }
 
 

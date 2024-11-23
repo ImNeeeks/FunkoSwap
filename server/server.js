@@ -7,10 +7,17 @@ const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
 const { Funko } = require("./models");
 const { authMiddleware } = require('./utils/auth');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Use environment variable for the secret key
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);// Use environment variable for the secret key
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+// const corsOptions = {
+//   origin: FRONTEND_DOMAIN,
+//   credentials: true
+// }
+// app.use(cors(corsOptions));
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -26,21 +33,6 @@ const startApolloServer = async () => {
   app.use("/graphql", expressMiddleware(server, {
     context: authMiddleware
   }));
-
-  // Payment intent route
-  app.post('/create-payment-intent', async (req, res) => {
-    const { amount } = req.body; // Expect amount from client
-    try {
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount,
-        currency: 'usd',
-        payment_method_types: ['card'],
-      });
-      res.status(200).json(paymentIntent);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  });
 
   // Example test route
   app.get("/test", async (req, res) => {

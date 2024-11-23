@@ -52,3 +52,9 @@ export const GET_CART = gql`
     }
   }
 `;
+
+export const CHECKOUT = gql`
+  query checkoutCart {
+    createCheckoutSession
+  }
+`

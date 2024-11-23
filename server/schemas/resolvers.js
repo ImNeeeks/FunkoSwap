@@ -1,9 +1,30 @@
-const { User, Funko, wishList } = require("../models");
+const { User, Funko } = require("../models");
 const { signToken } = require("../utils/auth");
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const FRONTEND_DOMAIN = "http://localhost:3001";
+
 
 // Create the functions that fulfill the queries defined in `typeDefs.js`
 const resolvers = {
   Query: {
+
+    createCheckoutSession: async () => {
+      const session = await stripe.checkout.sessions.create({
+        line_items: [
+          {
+            price: 'price_1QLvEgP9BtnsSP7QZDFbvfq9',
+            quantity: 1
+          }
+        ],
+        mode: 'payment',
+       success_url: FRONTEND_DOMAIN + "/Success",
+        cancel_url: FRONTEND_DOMAIN + "/Cancel" 
+      });
+      return JSON.stringify({
+        url: session.url
+      })
+},
+
     getFunko: async (parent, { searchTerm, limit }) => {
       console.log("searchTerm:", searchTerm);
       console.log("limit:", limit);
@@ -99,6 +120,7 @@ const resolvers = {
 
   },
   Mutation: {
+
     signUp: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       console.log(user);

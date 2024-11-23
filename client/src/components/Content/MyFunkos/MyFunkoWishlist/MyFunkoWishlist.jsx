@@ -1,7 +1,7 @@
-import "./MyFunkoWishlist.css";
+// import "./MyFunkoWishlist.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_WISHLIST } from "../../utils/queries";
-import "./MyFunkoWishlist.css";
+// import "./MyFunkoWishlist.css";
 import { ADD_FUNKO_TO_CART } from "../../utils/mutations"; // Make sure this is defined
 import { useState } from "react";
 import { DELETE_FUNKO } from "../../utils/mutations";

@@ -6,6 +6,7 @@ type Query {
   getWishlist: [Funko]
   getMyCollection: [Funko]
   getCart: [Funko]
+  createCheckoutSession: String
 }
 
 

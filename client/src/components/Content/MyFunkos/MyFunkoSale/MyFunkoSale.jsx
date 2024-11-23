@@ -1,15 +1,32 @@
 import "./MyFunkoSale.css";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import { DELETE_FUNKO } from "../../utils/mutations";
 import { GET_CART } from "../../utils/queries";
+import { CHECKOUT } from "../../utils/queries";
+// import { useNavigate } from "react-router-dom";
 
 // to use stack feature in cart, import from bootstrap react
 import Stack from "react-bootstrap/Stack";
 
 // Cart serves to pull data from the array within the user model
 function Cart() {
+  console.log("triggering checkout....");
   const { loading, error, data } = useQuery(GET_CART);
   const [deleteFunko] = useMutation(DELETE_FUNKO);
+  
+  const [startCheckout] = useLazyQuery(CHECKOUT, {
+    onCompleted: (queryData) => {
+      console.log("checkout query completed:", queryData);
+      let data = JSON.parse(queryData.createCheckoutSession);
+      console.log("Parsed checkout data:",queryData);
+      let checkoutUrl = data.url;
+      console.log("checkout URL:", checkoutUrl);
+      window.location.assign(checkoutUrl);
+    }
+  });
+  if (loading) return null;
+  if (error) return `Error! ${error}`;
+  // const navigate = useNavigate();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
@@ -22,6 +39,7 @@ function Cart() {
     .reduce((sum, funko) => sum + (funko.randomexampleprice || 0), 0)
     .toFixed(2);
 
+  
   // delete function to remove funko off the page
   const handleDelete = async (funkoId) => {
     try {
@@ -35,6 +53,7 @@ function Cart() {
       console.error("Error deleting Funko:", error);
     }
   };
+
 
   // renders funko cards, prices, buttons
   return (
@@ -100,6 +119,10 @@ function Cart() {
         <div className="total-section">
           <strong>Total: ${total}</strong>
         </div>
+        {/* Checkout Button */}
+        <button className="btn btn-primary" onClick={startCheckout}>
+          Checkout
+        </button>
       </div>
     </div>
   );

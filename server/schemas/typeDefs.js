@@ -8,17 +8,26 @@ type Query {
   getCart: [Funko]
   getUserProfile(username: String!): [Profile]
   createCheckoutSession: String
+  getUserFunkos: [NewFunko]
 }
 
+type NewFunko {
+_id: ID!
+title: String!
+handle: String!
+imageName: String!
+series: [String]
+price: Float
+}
 
 type Funko {
-    _id: ID!
-    title: String!
-    handle: String!
-    imageName: String!
-    series: [String] 
-    price: Float
-    randomexampleprice: Float
+  _id: ID!
+  title: String!
+  handle: String!
+  imageName: String!
+  series: [String] 
+  price: Float
+  randomexampleprice: Float
 }
 
 type User {
@@ -58,6 +67,7 @@ addFunkoToWishlist(funkoId: ID!): User
 AddFunkoToCart(funkoId: ID!): User
 deleteFunko(funkoId: ID!, collection: String!): User
 addFunkoForSale(funkoId: ID!, price: Float!): Profile
+addUserFunko(funkoId: ID!): User
 }
 `;
 

@@ -11,8 +11,8 @@ import MyFunkoSale from "./components/Content/MyFunkos/MyFunkoSale/MyFunkoSale.j
 import Search from "./components/Content/Search/Search.jsx";
 import MyProfile from "./components/Content/Profiles/MyProfile.jsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
-import Success from "./components/Content/MyFunkos/MyFunkoSale/success.jsx";
-import Cancel from "./components/Content/MyFunkos/MyFunkoSale/cancel.jsx";
+import Success from "./components/Content/MyFunkos/MyFunkoSale/Success.jsx";
+import Cancel from "./components/Content/MyFunkos/MyFunkoSale/Cancel.jsx";
 
 //gives URL paths for each component
 const router = createBrowserRouter([
@@ -49,11 +49,12 @@ const router = createBrowserRouter([
         path: "/app/myProfile",
         element: <ProtectedRoutes element={<MyProfile />}></ProtectedRoutes>,
       },
+      {
         path: "/app/Success",
         element: <Success/>
       },
       {
-        path: "/app/Success",
+        path: "/app/Cancel",
         element: <Cancel />
       }
     ],

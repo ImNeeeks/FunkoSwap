@@ -4,7 +4,8 @@ const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@apollo/server/express4");
 const path = require("path");
 const { typeDefs, resolvers } = require("./schemas");
-const db = require("./config/connection");
+const { originalDB, productDB } = require("./config/connection");
+//const {originalDB, productDB } = require("./config/connection" this is importing orignal and new databases
 const { Funko } = require("./models");
 const { authMiddleware } = require('./utils/auth');
 // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);// Use environment variable for the secret key
@@ -51,12 +52,31 @@ const startApolloServer = async () => {
     });
   }
 
-  db.once("open", () => {
-    app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
-    });
+  // ensure the original DB connection is open
+  originalDB.once("open", () => {
+    console.log("original DB connection is open")
   });
+
+  // ensure new cionnection is open
+  productDB.once("open", () => {
+    console.log("new DB connection is open");
+  });
+
+  // Start the server
+  app.listen(PORT, () => {
+    console.log(`🚀 API server running on port ${PORT}!`);
+    console.log(`🛰️  Use GraphQL at http://localhost:${PORT}/graphql`);
+  });
+
+
 };
+
+  // db.once("open", () => {
+  //   app.listen(PORT, () => {
+  //     console.log(`API server running on port ${PORT}!`);
+  //     console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+  //   });
+  // });
+
 
 startApolloServer();

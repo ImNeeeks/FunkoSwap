@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const categorySchema = require("./category");
+//const {originalDB} = require("../config/connection");
 
 //imageName is the URL to the funko image URL
 const funkoSchema = new Schema(
@@ -33,5 +34,6 @@ const funkoSchema = new Schema(
   }
 );
 
+// const Funko = originalDB.model("Funko", funkoSchema);
 const Funko = model("Funko", funkoSchema);
 module.exports = Funko;

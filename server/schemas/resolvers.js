@@ -1,7 +1,7 @@
-const { User, Funko } = require("../models");
+const { User, Funko, NewFunko } = require("../models");
 const { signToken } = require("../utils/auth");
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const FRONTEND_DOMAIN = "http://localhost:3001";
+const FRONTEND_DOMAIN = "http://localhost:3003";
 
 
 // Create the functions that fulfill the queries defined in `typeDefs.js`
@@ -17,13 +17,13 @@ const resolvers = {
           }
         ],
         mode: 'payment',
-       success_url: FRONTEND_DOMAIN + "/Success",
-        cancel_url: FRONTEND_DOMAIN + "/Cancel" 
+        success_url: `${FRONTEND_DOMAIN}/app/Success`,
+        cancel_url: `${FRONTEND_DOMAIN}/app/Cancel`
       });
       return JSON.stringify({
         url: session.url
       })
-},
+    },
 
     getFunko: async (parent, { searchTerm, limit }) => {
       console.log("searchTerm:", searchTerm);
@@ -45,6 +45,9 @@ const resolvers = {
         throw new Error("Failed to fetch Funkos");
       }
     },
+
+    
+  
     getCart: async (parent, args, context) => {
       // Ensure the user is authenticated
       if (!context.user) {
@@ -172,7 +175,17 @@ const resolvers = {
       //     throw new Error("Error fetching collection");
       //   }
     },
+    getUserFunkos: async () => {
+      try {
+        return await NewFunko.find();
+      } catch (error) {
+        console.error("Error fetching user-created Funkos:", error);
+        throw new Error("Failed to fetch user-created Funkos");
+      }
+    }
+
   },
+
   Mutation: {
 
     signUp: async (parent, { username, email, password }) => {
